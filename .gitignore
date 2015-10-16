@@ -1,0 +1,25 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows shortcuts
+*.lnk
+
+#IDE folder
+.idea/
+
+#MyBot user folders
+Profiles/
+Templates/
+SkippedZombies/
+Zombies/
+THOutside/
+
+#Ignore compiled exe
+*.exe
