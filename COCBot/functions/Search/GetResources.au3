@@ -76,7 +76,7 @@ Func GetResources() ;Reads resources
 			$iStuck = 0
 			Return
 		Else
-			SetLog("Have strange problem can not determine, Restarting Bot...", $COLOR_RED)
+			SetLog(getLocaleString("logStrangeProblem"), $COLOR_RED)
 			$Is_ClientSyncError = True
 			$iStuck = 0
 			$Restart = True

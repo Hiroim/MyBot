@@ -22,7 +22,7 @@ Func ProfileReport()
 	If _Sleep($iDelayProfileReport1) Then Return
 
 	SetLog(getLocaleString("logProfileReport"), $COLOR_BLUE)
-	SetLog("Opening Profile page to read atk, def, donated ad received...", $COLOR_BLUE)
+	SetLog(getLocaleString("logOpeningProfilePage"), $COLOR_BLUE)
 	Click(220, 33, 1, 0, "#0222") ; Click Info Profile Button
 	If _Sleep($iDelayProfileReport2) Then Return
 

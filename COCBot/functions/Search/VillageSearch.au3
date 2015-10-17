@@ -87,8 +87,8 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 
 		If $OptBullyMode = 1 Then SetLog(getLocaleString("logTHBully") & $ATBullyMode & getLocaleString("logTHBully2") & $YourTHText)
 
-		If $chkATH = 1 Then $chkATHText = " Attack TH Outside "
-		If $OptTrophyMode = 1 Then $OptTrophyModeText = "THSnipe Combo, " & $THaddtiles & " Tile(s), "
+		If $chkATH = 1 Then $chkATHText = getLocaleString("txtAttackTH")
+		If $OptTrophyMode = 1 Then $OptTrophyModeText = getLocaleString("txtOptTrophyMode") & $THaddtiles & getLocaleString("txtOptTrophyModeTiles")
 		If $OptTrophyMode = 1 Or $chkATH = 1 Then SetLog($OptTrophyModeText & $chkATHText & $txtAttackTHType)
 	EndIf
 
