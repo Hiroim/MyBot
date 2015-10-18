@@ -35,7 +35,7 @@ Func ClanLevel()
 		If $debugSetlog = 1 Then SetLog("Click $aClanInfo", $COLOR_GREEN)
 		ClickP($aClanInfo, 1, 0, "#0470") ; click Info
 	Else
-		SetLog("Please join a Clan ...", $COLOR_GREEN)
+		SetLog(getLocaleString("logJoinAClan"), $COLOR_GREEN)
 		If _ColorCheck(_GetPixelColor($aCloseChat[0], $aCloseChat[1]), Hex($aCloseChat[2], 6), $aCloseChat[3]) Then
 			; Clicks chat thing
 			Click($aCloseChat[0], $aCloseChat[1], 1, 0, "#0470")
@@ -51,9 +51,9 @@ Func ClanLevel()
 	If WaitforPixel(95, 243, 98, 244, Hex(0x7cd8e8, 6), 5, 10) Then
 		$iClanLevel = getOcrClanLevel(87, 101)
 		If Not $iClanLevel = "" Then
-			SetLog("Found Clan Level: " & $iClanLevel, $COLOR_GREEN)
+			SetLog(getLocaleString("logFoundClanLv") & $iClanLevel, $COLOR_GREEN)
 		Else
-			SetLog("Error finding Clan Level...", $COLOR_RED)
+			SetLog(getLocaleString("logErrorClanLv"), $COLOR_RED)
 			$iClanLevel = 8
 		EndIf
 	EndIf
@@ -75,7 +75,7 @@ Func ClanLevel()
 			If _Sleep(100) Then Return
 			$i += 1
 			If $i > 30 Then
-				SetLog("Error finding Clan tab to close...", $COLOR_RED)
+				SetLog(getLocaleString("logErrorClanTab"), $COLOR_RED)
 				ExitLoop
 			EndIf
 		EndIf

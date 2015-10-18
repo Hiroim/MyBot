@@ -229,20 +229,20 @@ Func checkArmyCamp()
 	If Not _ColorCheck(_GetPixelColor(485, 475, True), Hex(0xD3D3CA, 6), 10) Then
 		; Slot 1
 		If _ColorCheck(_GetPixelColor(485, 475, True), Hex(0x808650, 6), 20) Then
-			Setlog(" - Archer Queen available")
+			Setlog(getLocaleString("logAQAvailable"))
 			$ArcherQueenAvailable = 1
 		EndIf
 		If _ColorCheck(_GetPixelColor(485, 475, True), Hex(0x503838, 6), 20) Then
-			Setlog(" - Barbarian King available")
+			Setlog(getLocaleString("logBKAvailable"))
 			$BarbarianKingAvailable = 1
 		EndIf
 		; Slot 2
 		If _ColorCheck(_GetPixelColor(547, 475, True), Hex(0x808650, 6), 20) Then
-			Setlog(" - Archer Queen available")
+			Setlog(getLocaleString("logAQAvailable"))
 			$ArcherQueenAvailable = 1
 		EndIf
 		If _ColorCheck(_GetPixelColor(547, 475, True), Hex(0x503838, 6), 20) Then
-			Setlog(" - Barbarian King available")
+			Setlog(getLocaleString("logBKAvailable"))
 			$BarbarianKingAvailable = 1
 		EndIf
 	EndIf
@@ -268,17 +268,17 @@ Func checkArmyCamp()
 				$TotalSFactory = Number($aGetSFactorySize[2])
 				$CurSFactory = Number($aGetSFactorySize[1])
 			Else
-				Setlog("Spell Factory size read error.", $COLOR_RED) ; log if there is read error
+				Setlog(getLocaleString("logSpellSizeReadError"), $COLOR_RED) ; log if there is read error
 				$CurSFactory = 0
 				$TotalSFactory = $iTotalCountSpell
 			EndIf
 		Else
-			Setlog("Spell Factory size read error.", $COLOR_RED) ; log if there is read error
+			Setlog(getLocaleString("logSpellSizeReadError"), $COLOR_RED) ; log if there is read error
 			$CurSFactory = 0
 			$TotalSFactory = $iTotalCountSpell
 		EndIf
 
-		SetLog("Total Spell(s) Capacity: " & $CurSFactory & "/" & $TotalSFactory)
+		SetLog(getLocaleString("logTotalSpellCap") & $CurSFactory & "/" & $TotalSFactory)
 
 		For $i = 0 To 4 ; 5 visible slots in ArmyoverView window
 			If $debugSetlog = 1 Then Setlog(" Slot : " & $i + 1)
@@ -289,35 +289,35 @@ Func checkArmyCamp()
 			If $debugSetlog = 1 Then Setlog(" getOcrSpellQuantity: " & $SpellQ)
 			If $FullTemp = "Lightning" Then
 				$CurLightningSpell = $SpellQ
-				Setlog(" - No. of LightningSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameLightningSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Heal" Then
 				$CurHealSpell = $SpellQ
-				Setlog(" - No. of HealSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameHealingSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Rage" Then
 				$CurRageSpell = $SpellQ
-				Setlog(" - No. of RageSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameRageSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Jump" Then
 				$CurJumpSpell = $SpellQ
-				Setlog(" - No. of JumpSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameJumpSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Freeze" Then
 				$CurFreezeSpell = $SpellQ
-				Setlog(" - No. of FreezeSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameFreezeSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Poison" Then
 				$CurPoisonSpell = $SpellQ
-				Setlog(" - No. of PoisonSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNamePoisonSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Haste" Then
 				$CurHasteSpell = $SpellQ
-				Setlog(" - No. of HasteSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameHasteSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Earth" Then
 				$CurEarthSpell = $SpellQ
-				Setlog(" - No. of EarthquakeSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameEarthquakeSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "" And $debugSetlog = 1 Then
 				Setlog(" - was not detected anything in slot: " & $i + 1)

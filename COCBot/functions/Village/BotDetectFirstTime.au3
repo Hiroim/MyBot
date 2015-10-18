@@ -55,7 +55,7 @@ Func BotDetectFirstTime()
 	EndIf
 
 	If _Sleep($iDelayBotDetectFirstTime1) Then Return
-	Setlog("Finding your Clan Level, wait..")
+	Setlog(getLocaleString("logFindClanLv"))
 	ClanLevel()
 	If _Sleep($iDelayBotDetectFirstTime1) Then Return
 
@@ -91,7 +91,7 @@ Func BotDetectFirstTime()
 		EndIf
 	EndIf
 
-	If (GUICtrlRead($cmbBoostArcherQueen) > 0) Or $ichkUpgradeQueen = 1 Then
+	If (GUICtrlRead($cmbBoostArcherQueen) > 0) Then
 		If _Sleep($iDelayBotDetectFirstTime3) Then Return
 		If $QueenAltarPos[0] = -1 Then
 			LocateQueenAltar()
@@ -104,18 +104,18 @@ Func BotDetectFirstTime()
 		If $KingAltarPos[0] = -1 Then
 			LocateKingAltar()
 			SaveConfig()
-		EndIf
-	Else
-		Click($KingAltarPos[0], $KingAltarPos[1]) ;Click King Altar
-		If _Sleep(500) Then Return
-		$sInfo = BuildingInfo(242, 520)
-		ClickP($aAway,1,0,"#0121") ; click away
-		If _Sleep(500) Then Return
-		If $sInfo[0] > 1 Or $sInfo[0] = "" Then
-			If  (StringInStr($sInfo[1], "Barb") = 0) And (StringInStr($sInfo[1], "King") = 0) Then
-				SetLog("Hatalý Barbar Kral konumu, yeniden konumlandýrýlýyor...", $COLOR_RED)
-				LocateKingAltar()
-			    SaveConfig()
+		Else
+			Click($KingAltarPos[0], $KingAltarPos[1]) ;Click King Altar
+			If _Sleep(500) Then Return
+			$sInfo = BuildingInfo(242, 520)
+			ClickP($aAway,1,0,"#0121") ; click away
+			If _Sleep(500) Then Return
+			If $sInfo[0] > 1 Or $sInfo[0] = "" Then
+				If  (StringInStr($sInfo[1], "Barb") = 0) And (StringInStr($sInfo[1], "King") = 0) Then
+					SetLog("Hatalý Barbar Kral konumu, yeniden konumlandýrýlýyor...", $COLOR_RED)
+					LocateKingAltar()
+					SaveConfig()
+				EndIf
 			EndIf
 		EndIf
 	EndIf
