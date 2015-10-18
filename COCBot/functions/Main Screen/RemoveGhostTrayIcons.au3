@@ -49,7 +49,7 @@ Func RemoveGhostTrayIcons()
 	EndIf
 
 	Local $iTrayHiddenCount = _GUICtrlToolbar_ButtonCount($hTrayHidden)
-	Setlog(getLocaleString("logHiddenTrayCount") &$iTrayHiddenCount, $COLOR_PURPLE) ; Debug
+	If $debugsetlog = 1 Then Setlog(getLocaleString("logHiddenTrayCount") &$iTrayHiddenCount, $COLOR_PURPLE) ; Debug
 
 	If $iTrayHiddenCount > 1 Then
 		For $i = $iTrayHiddenCount - 1 To 0 Step -1 ; Loop through the icons and look for ghost with PID = -1

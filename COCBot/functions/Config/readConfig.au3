@@ -51,6 +51,9 @@ Func readConfig() ;Reads config and sets it to the variables
 		$QueenAltarPos[0] = IniRead($building, "other", "xQueenAltarPos", "-1")
 		$QueenAltarPos[1] = IniRead($building, "other", "yQueenAltarPos", "-1")
 
+		$ichkUpgradeQueen = IniRead($building, "other", "UpQueen", "0")
+		$ichkUpgradeKing = IniRead($building, "other", "UpKing", "0")
+
 		;$barrackNum = IniRead($building, "other", "barrackNum", "0")
 		;$barrackDarkNum = IniRead($building, "other", "barrackDarkNum", "0")
 
@@ -194,6 +197,9 @@ Func readConfig() ;Reads config and sets it to the variables
 
 		$chkATH = IniRead($config, "advanced", "townhall", "0")
 
+		$iChkSnipeWhileTrain = IniRead($config, "advanced", "chkSnipeWhileTrain", "0")
+		$iSkippedSWT = IniRead($config, "advanced", "iSkippedSWT", "15")
+
 		$OptBullyMode = IniRead($config, "advanced", "BullyMode", "0")
 		$ATBullyMode = IniRead($config, "advanced", "ATBullyMode", "0")
 		$YourTH = IniRead($config, "advanced", "YourTH", "0")
@@ -203,6 +209,15 @@ Func readConfig() ;Reads config and sets it to the variables
 		$THaddtiles = IniRead($config, "advanced", "THaddTiles", "2")
 		$icmbAttackTHType = IniRead($config, "advanced", "AttackTHType", "3")
 		$icmbDeployBtmTHType = IniRead($config, "advanced", "AttackBottomTHType", "1")
+
+		$OptTrappedTH = IniRead($config, "advanced", "DetectTrappedTH", "0")
+		$skipMortar = IniRead($config, "advanced", "skipMortar", "0")
+		$skipWiz = IniRead($config, "advanced", "skipWiz", "0")
+		$skipInferno = IniRead($config, "advanced", "skipInferno", "0")
+		$skipTesla = IniRead($config, "advanced", "skipTesla", "0")
+		;$skipAir = IniRead($config, "advanced", "skipAir", "0")
+		$grdTroops = IniRead($config, "advanced", "grdTroops", "0")
+		$airTroops = IniRead($config, "advanced", "airTroops", "0")
 
 		$PushToken = IniRead($config, "advanced", "AccountToken", "")
 
@@ -492,8 +507,8 @@ Func readConfig() ;Reads config and sets it to the variables
 		$iPlannedBoostBarracksHours     = StringSplit(IniRead($config, "planned", "BoostBarracksHours", "1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1"),"|", $STR_NOCOUNT)
 
 		;Share Attack Settings----------------------------------------
-		$iShareminGold = IniRead($config, "shareattack", "minGold", "200000")
-		$iShareminElixir = IniRead($config, "shareattack", "minElixir", "200000")
+		$iShareminGold = IniRead($config, "shareattack", "minGold", "300000")
+		$iShareminElixir = IniRead($config, "shareattack", "minElixir", "300000")
 		$iSharemindark = IniRead($config, "shareattack", "minDark", "100")
 		$iShareAttack = IniRead($config, "shareattack", "ShareAttack", "0")
 		$sShareMessage = StringReplace(IniRead($config, "shareattack", "Message", "Nice|Good|Thanks|Wowwww"), "|", @CRLF)

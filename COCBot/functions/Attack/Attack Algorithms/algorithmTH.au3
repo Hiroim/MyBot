@@ -152,65 +152,112 @@ Func DeployTHNormal($iAtEachSpot, $iNbOfSpots)
 
 	Switch $THside
 		Case 0 ;UL
-			For $num = 0 To $iAtEachSpot - 1
-				For $i = $THi - 1 To $THi - 1 + Ceiling(($iNbOfSpots - 1) / 2)
-					$aThx = 25 - $i * 19
-					$aThy = 314 + $i * 14
+			If $THx <=200 and $Thy < 326 and $Thy > 318 then  ; In Left Corner
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi To $THi + ($iNbOfSpots - 1)
+						If CheckOneStar(0, False, False) Then Return
+						Click(35,314,1,0,"#0019") ; Left Corner
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
 
-				For $ii = $THi - 1 To $THi - 1 + ($iNbOfSpots - 1)
-					$aThx = 25 + $ii * 19
-					$aThy = 314 - $ii * 14
-					If CheckOneStar(0, False, False) Then Return
-					Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0019")
-					If _Sleep(Random(20, 40)) Then Return
+			ElseIf $THy < 110 and $THx > 425 and $THx < 435 then ; In Top Corner
+					For $num = 0 To $iAtEachSpot - 1
+						For $ii = $THi To $THi + ($iNbOfSpots - 1)
+							If CheckOneStar(0, False, False) Then Return
+							Click(428,30,1,0,"#0019") ; Top Corner
+							If _Sleep(Random(20, 40)) Then Return
+						Next
+					Next
+
+
+			Else; Along Side 0 (Top Left Side)
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi - 1 To $THi - 1 + ($iNbOfSpots - 1)
+						$aThx = 25 + $ii * 19
+						$aThy = 314 - $ii * 14
+						If CheckOneStar(0, False, False) Then Return
+						Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0019")
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
-			Next
+			EndIf
+
 		Case 1 ;LL
-			For $num = 0 To $iAtEachSpot - 1
-				For $i = $THi To $THi + Ceiling(($iNbOfSpots - 1) / 2)
-					$aThx = 25 - $i * 19
-					$aThy = 314 - $i * 14
+			If $THx <=200 and $Thy < 326 and $Thy > 318 then  ; In Left Corner
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi To $THi + ($iNbOfSpots - 1)
+						If CheckOneStar(0, False, False) Then Return
+						Click(35,314,1,0,"#0019"); In Left Corner
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
 
-				For $ii = $THi To $THi + ($iNbOfSpots - 1)
-					$aThx = 25 + $ii * 19
-					$aThy = 314 + $ii * 14
-					If CheckOneStar(0, False, False) Then Return
-					Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0020")
-					If _Sleep(Random(20, 40)) Then Return
+			Else; Along Side 1 (Bottom Left Side)
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi To $THi + ($iNbOfSpots - 1)
+						$aThx = 25 + $ii * 19
+						$aThy = 314 + $ii * 14
+						If CheckOneStar(0, False, False) Then Return
+						Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0020")
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
-			Next
+			EndIf
+
 		Case 2 ;UR
-			For $num = 0 To $iAtEachSpot - 1
-				For $i = $THi To $THi + Ceiling(($iNbOfSpots - 1) / 2)
-					$aThx = 830 + $i * 19
-					$aThy = 314 + $i * 14
+			If $THy < 110 and $THx > 425 and $THx < 435 then ; In Top Corner
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi To $THi + ($iNbOfSpots - 1)
+						If CheckOneStar(0, False, False) Then Return
+						Click(428,30,1,0,"#0019") ; Top Corner
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
 
-				For $ii = $THi To $THi + ($iNbOfSpots - 1)
-					$aThx = 830 - $ii * 19
-					$aThy = 314 - $ii * 14
-					If CheckOneStar(0, False, False) Then Return
-					Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0021")
-					If _Sleep(Random(20, 40)) Then Return
+			ElseIf $THx >=700 and $Thy < 326 and $Thy > 318 then  ; In Right Corner
+					For $num = 0 To $iAtEachSpot - 1
+						For $ii = $THi To $THi + ($iNbOfSpots - 1)
+							If CheckOneStar(0, False, False) Then Return
+							Click(810,314,1,0,"#0019") ; Right Corner
+							If _Sleep(Random(20, 40)) Then Return
+						Next
+					Next
+
+
+			Else ;Along Side 2 (Top Right Side)
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi - 1 To $THi - 1 + ($iNbOfSpots - 1)
+						$aThx = 830 - $ii * 19
+						$aThy = 314 - $ii * 14
+						If CheckOneStar(0, False, False) Then Return
+						Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0021")
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
-			Next
+			EndIf
+
 		Case 3 ;LR
-			For $num = 0 To $iAtEachSpot - 1
-				For $i = $THi + 1 To $THi + 1 + Ceiling(($iNbOfSpots - 1) / 2)
-					$aThx = 830 + $i * 19
-					$aThy = 314 - $i * 14
+			If $THx >=700 and $Thy < 326 and $Thy > 318 then  ; In Right Corner
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi To $THi + ($iNbOfSpots - 1)
+						If CheckOneStar(0, False, False) Then Return
+						Click(810,314,1,0,"#0019") ; Right Corner
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
 
-				For $ii = $THi + 1 To $THi + 1 + ($iNbOfSpots - 1)
-					$aThx = 830 - $ii * 19
-					$aThy = 314 + $ii * 14
-					If CheckOneStar(0, False, False) Then Return
-					Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0022")
-					If _Sleep(Random(20, 40)) Then Return
+			Else ;Along Side 3 (Bottom Right Side)
+				For $num = 0 To $iAtEachSpot - 1
+					For $ii = $THi - 1 To $THi - 1 + ($iNbOfSpots - 1)
+						$aThx = 830 - $ii * 19
+						$aThy = 314 + $ii * 14
+						If CheckOneStar(0, False, False) Then Return
+						Click(Random($aThx - 5, $aThx + 5, 1), Random($aThy - 5, $aThy + 5, 1), 1, 0, "#0022")
+						If _Sleep(Random(20, 40)) Then Return
+					Next
 				Next
-			Next
+			EndIf
 	EndSwitch
 
 EndFunc   ;==>DeployTHNormal
@@ -252,7 +299,7 @@ Func DeployBtmTHFewZooms($iAtEachSpot, $iNbOfSpots)
 	;;;;;;;;;;;;; End zooming and scrolling to The Bottom ;;;;;;;;;;;;;;;;;;;;;;;
 
 	;;;;;;;;;;;;; Deploying Troops ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	If $THi = 17 And $Thx > 400 And $Thx < 455 And $Thy > 450 And $Thy < 580 Then
+	If $THi > 16 And $Thx > 400 And $Thx < 455 And $Thy > 450 And $Thy < 580 Then
 
 		If $debugSetlog = 1 Then Setlog("Center Bottom deployment THi = " & $THi & " ,x = " & $Thx & " ,y = " & $Thy)
 		For $count = 1 To $iAtEachSpot * $iNbOfSpots
@@ -290,7 +337,7 @@ Func DeployBtmTHOnSides($iAtEachSpot, $iNbOfSpots)
 	; No Zoom used in this attack
 	Local $i = 0
 
-	If $THi = 17 And $Thx > 400 And $Thx < 455 And $Thy > 450 And $Thy < 580 Then
+	If $THi > 16 And $Thx > 400 And $Thx < 455 And $Thy > 450 And $Thy < 580 Then
 
 		If $debugSetlog = 1 Then Setlog("Center Bottom deployment THi = " & $THi & " ,x = " & $Thx & " ,y = " & $Thy)
 		For $count = 1 To $iAtEachSpot * $iNbOfSpots
@@ -340,16 +387,42 @@ Func SpellTHGrid($S)
 		If $Restart = True Then Return
 		If CheckOneStar(0, False, True) Then Return
 
-		If $THi <= 15 Or $THside = 0 Or $THside = 2 Then
+		If $S = $eLSpell Then
+			CastSpell($S, $THx, $THy)
+
+		ElseIf $THi <= 15 Or $THside = 0 Or $THside = 2 Then
 			Switch $THside
 				Case 0
-					CastSpell($S, 114 + $THi * 19 + Ceiling(-2 * 19), 359 - $THi * 14 + Ceiling(-2 * 14))
+					If $THx <=200 and $Thy < 326 and $Thy > 318 then  ; In Left Corner
+						CastSpell($S,55,314) ; Left Corner
+					ElseIf $THy < 110 and $THx > 425 and $THx < 435 then ; In Top Corner
+						CastSpell($S,428,50) ; Top Corner
+					Else
+						CastSpell($S, 114 + $THi * 19 + Ceiling(-2 * 19), 359 - $THi * 14 + Ceiling(-2 * 14))
+					EndIf
+
 				Case 1
-					CastSpell($S, 117 + $THi * 19 + Ceiling(-2 * 19), 268 + $THi * 14 - Floor(-2 * 14))
+					If $THx <=200 and $Thy < 326 and $Thy > 318 then  ; In Left Corner
+						CastSpell($S,55,314) ; Left Corner
+					Else
+						CastSpell($S, 117 + $THi * 19 + Ceiling(-2 * 19), 268 + $THi * 14 - Floor(-2 * 14))
+					EndIf
+
 				Case 2
-					CastSpell($S, 743 - $THi * 19 - Floor(-2 * 19), 358 - $THi * 14 + Ceiling(-2 * 14))
+					If $THy < 110 and $THx > 425 and $THx < 435 then ; In Top Corner
+						CastSpell($S,428,50) ; TopCorner
+					ElseIf $THx >=700 and $Thy < 3326 and $Thy > 318 then  ; In Right Corner
+						CastSpell($S,790,314) ; Right Corner
+					Else
+						CastSpell($S, 743 - $THi * 19 - Floor(-2 * 19), 358 - $THi * 14 + Ceiling(-2 * 14))
+					EndIf
+
 				Case 3
-					CastSpell($S, 742 - $THi * 19 - Floor(-2 * 19), 268 + $THi * 14 - Floor(-2 * 14))
+					If $THx >=700 and $Thy < 326 and $Thy > 318 then  ; In Right Corner
+						CastSpell($S,790,314) ; Right Corner
+					Else
+						CastSpell($S, 742 - $THi * 19 - Floor(-2 * 19), 268 + $THi * 14 - Floor(-2 * 14))
+					EndIf
 			EndSwitch
 		EndIf
 

@@ -432,6 +432,70 @@ Func applyConfig() ;Applies the data from config to the controls in GUI
 	EndIf
 	chkSnipeMode()
 
+	If $iChkSnipeWhileTrain = 1 Then ; Snipe While Train MOD by ChiefM3
+		GUICtrlSetState($chkSnipeWhileTrain, $GUI_CHECKED)
+	Else
+		GUICtrlSetState($chkSnipeWhileTrain, $GUI_UNCHECKED)
+	EndIf
+	chkSnipeWhileTrain()
+	GUICtrlSetData($txtiSkipped, $iSkippedSWT)
+
+	If $OptTrappedTH = 1 Then
+		GUICtrlSetState($chkTrappedTH, $GUI_CHECKED)
+	ElseIf $OptTrappedTH = 0 Then
+		GUICtrlSetState($chkTrappedTH, $GUI_UNCHECKED)
+	EndIf
+	chkTrappedTH()
+
+	If $skipMortar = 1 Then
+		GUICtrlSetState($chkMortar, $GUI_CHECKED)
+	ElseIf $skipMortar = 0 Then
+		GUICtrlSetState($chkMortar, $GUI_UNCHECKED)
+	EndIf
+	chkMortar()
+
+	If $skipWiz = 1 Then
+		GUICtrlSetState($chkWiz, $GUI_CHECKED)
+	ElseIf $skipWiz = 0 Then
+		GUICtrlSetState($chkWiz, $GUI_UNCHECKED)
+	EndIf
+	chkWiz()
+
+	If $skipInferno = 1 Then
+		GUICtrlSetState($chkInferno, $GUI_CHECKED)
+	ElseIf $skipInferno = 0 Then
+		GUICtrlSetState($chkInferno, $GUI_UNCHECKED)
+	EndIf
+	chkInferno()
+
+	If $skipTesla = 1 Then
+		GUICtrlSetState($chkTesla, $GUI_CHECKED)
+	ElseIf $skipTesla = 0 Then
+		GUICtrlSetState($chkTesla, $GUI_UNCHECKED)
+	EndIf
+	chkTesla()
+
+	;If $skipAir = 1 Then
+	;	GUICtrlSetState($chkAir, $GUI_CHECKED)
+	;ElseIf $skipAir = 0 Then
+	;	GUICtrlSetState($chkAir, $GUI_UNCHECKED)
+	;EndIf
+	;chkAir()
+
+	If $grdTroops = 1 Then
+		GUICtrlSetState($chkGrdTroops, $GUI_CHECKED)
+	ElseIf $grdTroops = 0 Then
+		GUICtrlSetState($chkGrdTroops, $GUI_UNCHECKED)
+	EndIf
+	chkGrdTroops()
+
+	If $airTroops = 1 Then
+		GUICtrlSetState($chkAirTroops, $GUI_CHECKED)
+	ElseIf $airTroops = 0 Then
+		GUICtrlSetState($chkAirTroops, $GUI_UNCHECKED)
+	EndIf
+	chkAirTroops()
+
 	If $iAlertPBVillage = 1 Then
 		GUICtrlSetState($chkAlertPBVillage, $GUI_CHECKED)
 	ElseIf $iAlertPBVillage = 0 Then
@@ -1227,4 +1291,16 @@ Func applyConfig() ;Applies the data from config to the controls in GUI
 		GUICtrlSetState($chkVersion, $GUI_UNCHECKED)
 	EndIf
 
+	;Heroes
+	If $ichkUpgradeKing = 1 Then ;==>upgradeking
+        GUICtrlSetState($chkUpgradeKing, $GUI_CHECKED)
+	Else
+		GUICtrlSetState($chkUpgradeKing, $GUI_UNCHECKED)
+	EndIf
+
+	If $ichkUpgradeQueen = 1 Then ;==>upgradequeen
+        GUICtrlSetState($chkUpgradeQueen, $GUI_CHECKED)
+	Else
+        GUICtrlSetState($chkUpgradeQueen, $GUI_UNCHECKED)
+	EndIf
 EndFunc   ;==>applyConfig

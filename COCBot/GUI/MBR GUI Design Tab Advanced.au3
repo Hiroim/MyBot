@@ -19,6 +19,7 @@
  $tabAttackAdv = GUICtrlCreateTabItem(getLocaleString("tabAttackAdv"))
 	Local $x = 30, $y = 150
 	$grpAtkOptions = GUICtrlCreateGroup(getLocaleString("grpAtkOptions"), $x - 20, $y - 20, 450, 85)
+		$y -=5
 		$chkAttackNow = GUICtrlCreateCheckbox(getLocaleString("chkAttackNow"), $x - 10, $y, -1, -1)
 			GUICtrlSetTip(-1, getLocaleString("tipChkAttackNow",1))
 			GUICtrlSetOnEvent(-1, "chkAttackNow")
@@ -33,13 +34,21 @@
 		$lblAttackNowSec = GUICtrlCreateLabel(getLocaleString("lbAttackNowSec"), $x + 57, $y + 4, -1, -1)
 			GUICtrlSetTip(-1, getLocaleString("tipLbAttackNow"))
 			GUICtrlSetState(-1, $GUI_DISABLE)
+		$chkSnipeWhileTrain = GUICtrlCreateCheckbox(getLocaleString("lbSnipeWhileTraining"), $x + 150, $y, -1, -1) ; Snipe While Train MOD by ChiefM3
+            GUICtrlSetTip(-1, getLocaleString("tipLbSnipeWhileTraining"))
+            GUICtrlSetOnEvent(-1, "chkSnipeWhileTrain")
+        $txtiSkipped = GUICtrlCreateInput("15", $x + 285, $y, 30, -1, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER, $ES_NUMBER))
+            GUICtrlSetLimit(-1, 2)
+            GUICtrlSetTip(-1, getLocaleString("tipiSkipped",1))
+            GUICtrlSetState(-1, $GUI_DISABLE)
+        $lbliSkipped = GUICtrlCreateLabel(getLocaleString("lbliSkipped"), $x + 320, $y + 4, -1, -1)
 		$y +=22
 		$chkAttackTH = GUICtrlCreateCheckbox(getLocaleString("chkAttackTH"), $x - 10, $y, -1, -1)
             GUICtrlSetTip(-1, getLocaleString("tipChkAttackTH",1))
 
 	GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-	Local $x = 30, $y = 260
+	Local $x = 30, $y = 240
     $grpTHSnipeAttackCombo = GUICtrlCreateGroup(getLocaleString("grpTHSnipeAtkCombo"), $x - 20, $y - 20, 225, 285)
 		$y -= 5
 		$chkTrophyMode = GUICtrlCreateCheckbox(getLocaleString("chkTrophyMode"), $x - 10, $y, -1, -1)
@@ -96,6 +105,50 @@
 		$chkUseHSpellsTH = GUICtrlCreateCheckbox(getLocaleString("chkUseHSpellsTH"), $x + 130 , $y+1, -1, -1)
 			GUICtrlSetTip(-1, getLocaleString("tipUseHSpellsTH",1))
 			GUICtrlSetState(-1, $GUI_DISABLE)
+		$y += 27
+    	$chkTrappedTH = GUICtrlCreateCheckbox(getLocaleString("chkTrappedTH"), $x - 15, $y+1, -1, -1)
+			GUICtrlSetTip(-1, getLocaleString("chkTrappedTH"))
+			GUICtrlSetOnEvent(-1, "chkTrappedTH")
+		$y += 27
+		$chkInferno = GUICtrlCreateCheckbox(getLocaleString("chkInferno"), $x - 18, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+			GUICtrlSetImage(-1, @ScriptDir & "\Icons\infernotower.ico", 1)
+			GUICtrlSetTip(-1, getLocaleString("tipChkInferno",1))
+			GUICtrlSetOnEvent(-1, "chkInferno")
+			GUICtrlSetState(-1, $GUI_CHECKED)
+			GUICtrlSetState(-1, $GUI_DISABLE)
+		$chkWiz = GUICtrlCreateCheckbox(getLocaleString("chkWiz"), $x + 27, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+			GUICtrlSetImage(-1, @ScriptDir & "\Icons\wiztower.ico", 1)
+			GUICtrlSetTip(-1, getLocaleString("tipChkWiz",1))
+			GUICtrlSetOnEvent(-1, "chkWiz")
+			GUICtrlSetState(-1, $GUI_DISABLE)
+		$chkMortar = GUICtrlCreateCheckbox(getLocaleString("chkMortar"), $x + 72, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+			GUICtrlSetImage(-1, @ScriptDir & "\Icons\mortar.ico", 1)
+			GUICtrlSetTip(-1, getLocaleString("tipChkMortar",1))
+			GUICtrlSetOnEvent(-1, "chkMortar")
+			GUICtrlSetState(-1, $GUI_DISABLE)
+		$chkTesla = GUICtrlCreateCheckbox(getLocaleString("chkTesla"), $x + 117, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+			GUICtrlSetImage(-1, @ScriptDir & "\Icons\hiddentesla.ico", 1)
+			GUICtrlSetTip(-1, getLocaleString("tipChkTesla",1))
+			GUICtrlSetOnEvent(-1, "chkTesla")
+			GUICtrlSetState(-1, $GUI_DISABLE)
+		;$chkAir = GUICtrlCreateCheckbox(getLocaleString("chkAir"), $x + 162, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+		;	GUICtrlSetImage(-1, @ScriptDir & "\Icons\airdefense.ico", 1)
+		;	GUICtrlSetTip(-1, getLocaleString("tipChkAir",1))
+		;	GUICtrlSetOnEvent(-1, "chkAir")
+		;	GUICtrlSetState(-1, $GUI_DISABLE)
+		$chkGrdTroops = GUICtrlCreateCheckbox(getLocaleString("chkGrdTroops"), $x + 162, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+			GUICtrlSetImage(-1, @ScriptDir & "\Icons\barbicon.ico", 1)
+			GUICtrlSetTip(-1, getLocaleString("tipChkGrdTroops",1))
+			GUICtrlSetOnEvent(-1, "chkGrdTroops")
+			GUICtrlSetState(-1, $GUI_CHECKED)
+			GUICtrlSetState(-1, $GUI_DISABLE)
+		$chkAirTroops = GUICtrlCreateCheckbox(getLocaleString("chkAirTroops"), $x + 207, $y, 42, 42, BitOR($BS_ICON, $BS_PUSHLIKE))
+			GUICtrlSetImage(-1, @ScriptDir & "\Icons\balloonicon.ico", 1)
+			GUICtrlSetTip(-1, getLocaleString("tipChkAirTroops",1))
+			GUICtrlSetOnEvent(-1, "chkAirTroops")
+			GUICtrlSetState(-1, $GUI_DISABLE)
+			GUICtrlSetState(-1, $GUI_HIDE)
+		;$lblDetectTrappedTHInfo = GUICtrlCreateLabel(getLocaleString("lblDetectTrappedTHInfo",1), $x - 10, $y + 48, -1, -1)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 	Local $x = 260, $y = 240

@@ -38,11 +38,6 @@ If @AutoItX64 = 1 Then
 	Exit
 EndIf
 
-If Not FileExists(@ScriptDir & "\License.txt") Then
-	$license = InetGet("http://www.gnu.org/licenses/gpl-3.0.txt", @ScriptDir & "\License.txt")
-	InetClose($license)
-EndIf
-
 #include "COCBot\MBR Global Variables.au3"
 #include "COCBot\MBR GUI Design.au3"
 #include "COCBot\MBR GUI Control.au3"
@@ -102,6 +97,7 @@ Func runBot() ;Bot that runs everything in order
 	While 1
 		$Restart = False
 		$fullArmy = False
+		SWHTrainRevertNormal()
 		$CommandStop = -1
 		If _Sleep($iDelayRunBot1) Then Return
 		checkMainScreen()
@@ -118,7 +114,7 @@ Func runBot() ;Bot that runs everything in order
 			;    checkMainScreen(False)
 			;    If $Restart = True Then ContinueLoop
 			;EndIf
-			if $RequestScreenshot = 1 then PushMsg("RequestScreenshot")
+			If $RequestScreenshot = 1 then PushMsg("RequestScreenshot")
 				If _Sleep($iDelayRunBot3) Then Return
 			VillageReport()
 				If $OutOfGold = 1  And ($iGoldCurrent >= $itxtRestartGold) Then  ; check if enough gold to begin searching again
@@ -180,9 +176,15 @@ Func runBot() ;Bot that runs everything in order
 				If _Sleep($iDelayRunBot3) Then Return
 				checkMainScreen(False)  ; required here due to many possible exits
 				If $Restart = True Then ContinueLoop
-			UpgradeBuilding()
-				If _Sleep($iDelayRunBot3) Then Return
-				If $Restart = True Then ContinueLoop
+			If $iFreeBuilderCount > $iSaveWallBldr Then
+				UpgradeHeroes()
+                    If _Sleep($iDelayRunBot3) Then Return
+                    checkMainScreen(False)  ; required here due to many possible exits
+                    If $Restart = True Then ContinueLoop
+                UpgradeBuilding()
+                    If _Sleep($iDelayRunBot3) Then Return
+                    If $Restart = True Then ContinueLoop
+            EndIf
 			UpgradeWall()
 				If _Sleep($iDelayRunBot3) Then Return
 				If $Restart = True Then ContinueLoop
@@ -290,6 +292,7 @@ Func Idle() ;Sequence that runs until Full Army
 		EndIf
 		If _Sleep($iDelayIdle1) Then Return
 		If $Restart = True Then ExitLoop
+		SnipeWhileTrain()
 		$TimeIdle += Round(TimerDiff($hTimer) / 1000, 2) ;In Seconds
 		SetLog(getLocaleString("logIdle") & StringFormat("%02i", Floor(Floor($TimeIdle / 60) / 60)) & ":" & StringFormat("%02i", Floor(Mod(Floor($TimeIdle / 60), 60))) & ":" & StringFormat("%02i", Floor(Mod($TimeIdle, 60))))
 		If $OutOfGold = 1 Or $OutOfElixir = 1 Then Return

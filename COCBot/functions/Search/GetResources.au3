@@ -88,7 +88,7 @@ Func GetResources() ;Reads resources
 	$searchTH = "-"
 	If ($OptBullyMode = 1 And $SearchCount >= $ATBullyMode) Or $OptTrophyMode = 1 Or ($iCmbSearchMode <> $LB And ($iChkMeetTH[$DB] = 1 Or $iChkMeetTHO[$DB] = 1)) Or ($iCmbSearchMode <> $DB And ($iChkMeetTH[$LB] = 1 Or $iChkMeetTHO[$LB] = 1)) Then
 		If ($iCmbSearchMode <> $LB And $iChkMeetTHO[$DB] = 1) Or ($iCmbSearchMode <> $DB And $iChkMeetTHO[$LB] = 1) Or $OptTrophyMode = 1 Then
-			$searchTH = checkTownhallADV()
+			$searchTH = checkTownhall()
 		Else
 			$searchTH = checkTownhall()
 		EndIf
@@ -97,6 +97,9 @@ Func GetResources() ;Reads resources
 			$THLoc = getLocaleString("txtTHIn")
 		ElseIf $searchTH <> "-" Then
 			$THLoc = getLocaleString("txtTHOut")
+			If $OptTrophyMode = 1 And $OptTrappedTH = 1 Then
+              $searchDef = checkDefense()
+            EndIf
 		Else
 			$THLoc = $searchTH
 			$THx = 0
@@ -107,5 +110,10 @@ Func GetResources() ;Reads resources
 
 	$SearchCount += 1 ; Counter for number of searches
 	SetLog(StringFormat("%3s", $SearchCount) & getLocaleString("logG") & StringFormat("%7s", $searchGold) & getLocaleString("logE") & StringFormat("%7s", $searchElixir) & getLocaleString("logDE") & StringFormat("%5s", $searchDark) & getLocaleString("logT") & StringFormat("%2s", $searchTrophy) & $THString, $COLOR_BLACK, "Lucida Console", 7.5)
+	If $OptTrophyMode = 1 And $OptTrappedTH = 1 Then
+    	If $THLoc = getLocaleString("txtTHOut") Then
+    		SetLog($searchDef)
+   		 EndIf
+    EndIf
 
 EndFunc   ;==>GetResources

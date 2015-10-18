@@ -6,6 +6,24 @@ Func DropOnEdges($troop, $nbSides, $number, $slotsPerEdge = 0)
 	EndIf
 	If $nbSides < 1 Then Return
 	Local $nbTroopsLeft = $number
+
+	If $nbSides = 5 Then
+		If $slotsPerEdge = 2 Then
+			For $i = 0 To $nbSides - 4 ;Four Finger Deployment Giants
+				Local $nbTroopsPerEdge = Round($nbTroopsLeft / (($nbSides-1) - $i * 2))
+				DropOnEdge($troop, $Edges[$i], $nbTroopsPerEdge, $slotsPerEdge, $Edges[$i + 2],$i)
+				$nbTroopsLeft -= $nbTroopsPerEdge * 2
+			Next
+		Else
+			For $i = 0 To $nbSides - 5 ;Four Finger Deployment Barch
+				Local $nbTroopsPerEdge = Round($nbTroopsLeft / (($nbSides-1) - $i * 2))
+				DropOnEdge($troop, $Edges[$i], $nbTroopsPerEdge, $slotsPerEdge, $Edges[$i + 2],$i, $nbSides)
+				$nbTroopsLeft -= $nbTroopsPerEdge * 2
+			Next
+		EndIf
+		Return
+	EndIf
+
 	If $nbSides = 4 Then
 		For $i = 0 To $nbSides - 3
 			Local $nbTroopsPerEdge = Round($nbTroopsLeft / ($nbSides - $i * 2))

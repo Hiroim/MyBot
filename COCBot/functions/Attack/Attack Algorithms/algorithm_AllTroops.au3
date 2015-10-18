@@ -30,13 +30,17 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 	If _Sleep($iDelayalgorithm_AllTroops1) Then Return
 
 	If $iMatchMode = $TS Or ($chkATH = 1 And SearchTownHallLoc()) Then
-		SwitchAttackTHType()
-		If $zoomedin = True Then
-			ZoomOut()
-			$zoomedin = False
-			$zCount = 0
-			$sCount = 0
-		EndIf
+		If $allTroops = True Then ; added
+			AttackTrappedTH() ; added
+    	Else ; added
+			SwitchAttackTHType()
+            If $zoomedin = True Then
+                ZoomOut()
+                $zoomedin = False
+                $zCount = 0
+                $sCount = 0
+            EndIf
+		EndIf ; added
 	EndIf
 
 	;If $OptTrophyMode = 1 And SearchTownHallLoc() Then; Return ;Exit attacking if trophy hunting and not bullymode
@@ -124,24 +128,46 @@ Func algorithm_AllTroops() ;Attack Algorithm for all existing troops
 		Case 3 ;All sides ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			SetLog(getLocaleString("logNbSides4"), $COLOR_BLUE)
 			$nbSides = 4
+		Case 4 ;Four fingers style ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			SetLog(getLocaleString("logNbSides5"), $COLOR_BLUE)
+		$nbSides = 5
 	EndSwitch
 	If ($nbSides = 0) Then Return
 	If _Sleep($iDelayalgorithm_AllTroops2) Then Return
 
-	Local $listInfoDeploy[13][5] = [[$eGiant, $nbSides, 1, 1, 2] _
-			, [$eBarb, $nbSides, 1, 2, 0] _
-			, [$eWall, $nbSides, 1, 1, 1] _
-			, [$eArch, $nbSides, 1, 2, 0] _
-			, [$eBarb, $nbSides, 2, 2, 0] _
-			, [$eGobl, $nbSides, 1, 2, 0] _
-			, ["CC", 1, 1, 1, 1] _
-			, [$eHogs, $nbSides, 1, 1, 1] _
-			, [$eWiza, $nbSides, 1, 1, 0] _
-			, [$eMini, $nbSides, 1, 1, 0] _
-			, [$eArch, $nbSides, 2, 2, 0] _
-			, [$eGobl, $nbSides, 2, 2, 0] _
-			, ["HEROES", 1, 2, 1, 1] _
-			]
+		If $nbsides <> 5 Then
+			Local $listInfoDeploy[15][5] = [[$eGiant, $nbSides, 1, 1, 2] _
+					, [$eLava, $nbSides, 1, 1, 2] _
+					, [$eBall, $nbSides, 1, 1, 1] _
+					, [$eBarb, $nbSides, 1, 2, 0] _
+					, [$eWall, $nbSides, 1, 1, 1] _
+					, [$eArch, $nbSides, 1, 2, 0] _
+					, [$eBarb, $nbSides, 2, 2, 0] _
+					, [$eGobl, $nbSides, 1, 2, 0] _
+					, ["CC", 1, 1, 1, 1] _
+					, [$eHogs, $nbSides, 1, 1, 1] _
+					, [$eWiza, $nbSides, 1, 1, 0] _
+					, [$eMini, $nbSides, 1, 1, 0] _
+					, [$eArch, $nbSides, 2, 2, 0] _
+					, [$eGobl, $nbSides, 2, 2, 0] _
+					, ["HEROES", 1, 2, 1, 1] _
+					]
+		Else
+			Local $listInfoDeploy[13][5] = [[$eGiant, $nbSides, 1, 1, 2] _
+					, [$eLava, $nbSides, 1, 1, 2] _
+					, [$eBall, $nbSides, 1, 1, 1] _
+					, [$eBarb, $nbSides, 1, 1, 0] _
+					, [$eWall, $nbSides, 1, 1, 1] _
+					, [$eArch, $nbSides, 1, 1, 0] _
+					, [$eGobl, $nbSides, 1, 2, 0] _
+					, ["CC", 1, 1, 1, 1] _
+					, [$eHogs, $nbSides, 1, 1, 1] _
+					, [$eWiza, $nbSides, 1, 1, 0] _
+					, [$eMini, $nbSides, 1, 1, 0] _
+					, [$eGobl, $nbSides, 2, 2, 0] _
+					, ["HEROES", 1, 2, 1, 1] _
+					]
+		EndIf
 
 
 	LaunchTroop2($listInfoDeploy, $CC, $King, $Queen)

@@ -402,10 +402,10 @@ Local $x = 30, $y = 145
 		$y +=17
 		GUICtrlCreateIcon($pIconLib, $eIcnGreenLight, $x - 15, $y - 4, 16, 16)
 		;GUICtrlCreateLabel(getLocaleString("lblNbrOfTSSuccess"), $x - 15, $y - 2, -1, 17)
-		$lblNbrOfTSSuccess = GUICtrlCreateLabel("0", $x + 8, $y - 2, 25, 17, $SS_RIGHT)
+		$lblNbrOfTSSuccess = GUICtrlCreateLabel("0", $x + 8, $y - 2, 25, 17, $SS_LEFT)
 			GUICtrlSetTip(-1, getLocaleString("tipNbrOfTSSuccess"))
 		GUICtrlCreateIcon($pIconLib, $eIcnRedLight, $x + 35, $y - 4, 16, 16)
 		;GUICtrlCreateLabel(getLocaleString("lblNbrOfTSFailed"), $x + 50, $y - 2, -1, 17)
-		$lblNbrOfTSFailed = GUICtrlCreateLabel("0", $x + 58, $y - 2, 25, 17, $SS_RIGHT)
+		$lblNbrOfTSFailed = GUICtrlCreateLabel("0", $x + 58, $y - 2, 25, 17, $SS_LEFT)
 			GUICtrlSetTip(-1, getLocaleString("tipNbrOfTSFailed"))
 	GUICtrlCreateGroup("", -99, -99, 1, 1)

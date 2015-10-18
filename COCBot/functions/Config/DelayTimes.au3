@@ -188,7 +188,7 @@ Global Const $iDelayPrepareSearch7 = 50 ; click
 
 ;VillageSearch
 Global Const $iDelayVillageSearch1 = 1000
-Global Const $iDelayVillageSearch2 = 100
+Global Const $iDelayVillageSearch2 = 50
 Global Const $iDelayVillageSearch3 = 500
 
 ;BarracksStatus

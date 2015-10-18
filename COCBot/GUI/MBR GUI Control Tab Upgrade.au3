@@ -153,3 +153,20 @@ Func cmbLab()
 	$icmbLaboratory = _GUICtrlComboBox_GetCurSel($cmbLaboratory)
 	GUICtrlSetImage($icnLabUpgrade, $pIconLib, $aLabTroops[$icmbLaboratory][4])
 EndFunc   ;==>cmbLab
+
+
+Func ichkUpgradeKing()
+	If GUICtrlRead($chkUpgradeKing) = $GUI_CHECKED Then
+		$ichkUpgradeKing = 1
+	Else
+		$ichkUpgradeKing = 0
+	EndIf
+EndFunc
+
+Func ichkUpgradeQueen()
+	If GUICtrlRead($chkUpgradeQueen) = $GUI_CHECKED Then
+		$ichkUpgradeQueen = 1
+	Else
+		$ichkUpgradeQueen = 0
+	EndIf
+EndFunc

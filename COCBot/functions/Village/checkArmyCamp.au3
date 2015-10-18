@@ -25,7 +25,7 @@ Func checkArmyCamp()
 
 	Local $sInputbox, $iCount, $iTried, $tmpTotalCamp, $tmpCurCamp, $iHoldCamp
 
-	SetLog("Checking Army Camp...", $COLOR_BLUE)
+	SetLog(getLocaleString("logCheckAC"), $COLOR_BLUE)
 	If _Sleep($iDelaycheckArmyCamp1) Then Return
 
 	ClickP($aAway, 1, 0, "#0292") ;Click Away
@@ -72,25 +72,25 @@ Func checkArmyCamp()
 		If $TotalCamp = 0 Then $TotalCamp = $tmpTotalCamp
 		If $debugSetlog = 1 Then Setlog("$CurCamp = " & $CurCamp & ", $TotalCamp = " & $TotalCamp, $COLOR_PURPLE)
 	Else
-		Setlog("Army size read error, Troop numbers may not train correctly", $COLOR_RED) ; log if there is read error
+		Setlog(getLocaleString("logCampReadError"), $COLOR_RED) ; log if there is read error
 		$CurCamp = 0
 		CheckOverviewFullArmy()
 	EndIf
 
 	If $TotalCamp = 0 Or ($TotalCamp <> $tmpTotalCamp) Then ; if Total camp size is still not set or value not same as read use forced value
 		If $ichkTotalCampForced = 0 Then ; check if forced camp size set in expert tab
-			$sInputbox = InputBox("Question", "Enter your total Army Camp capacity", "200", "", Default, Default, Default, Default, 240, $frmbot)
+			$sInputbox = InputBox(getLocaleString("inputTotalCampTitle"), getLocaleString("inputTotalCamp"), "200", "", Default, Default, Default, Default, 0, $frmbot)
 			$TotalCamp = Number($sInputbox)
 			$iValueTotalCampForced = $TotalCamp
 			$ichkTotalCampForced = 1
-			Setlog("Army Camp User input = " & $TotalCamp, $COLOR_RED) ; log if there is read error AND we ask the user to tell us.
+			Setlog(getLocaleString("inputCampError") & $TotalCamp, $COLOR_RED) ; log if there is read error AND we ask the user to tell us.
 		Else
 			$TotalCamp = Number($iValueTotalCampForced)
 		EndIf
 	EndIf
 	If _Sleep($iDelaycheckArmyCamp4) Then Return
 
-	SetLog("Total Army Camp capacity: " & $CurCamp & "/" & $TotalCamp)
+	SetLog(getLocaleString("logTotalArmyCamp") & $CurCamp & "/" & $TotalCamp)
 
 	If ($CurCamp >= ($TotalCamp * $fulltroop / 100)) And $CommandStop = -1 Then
 		$fullArmy = True

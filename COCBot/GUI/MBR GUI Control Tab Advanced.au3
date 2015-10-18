@@ -107,3 +107,91 @@ Func chkSnipeMode()
 		GUICtrlSetState($chkUseLSpellsTH, $GUI_DISABLE)
 	EndIf
 EndFunc   ;==>chkSnipeMode
+
+Func chkTrappedTH()
+	If GUICtrlRead($chkTrappedTH) = $GUI_CHECKED Then
+		$OptTrappedTH = 1
+		GUICtrlSetState($chkMortar, $GUI_ENABLE)
+		GUICtrlSetState($chkWiz, $GUI_ENABLE)
+		GUICtrlSetState($chkInferno, $GUI_ENABLE)
+		GUICtrlSetState($chkTesla, $GUI_ENABLE)
+		;GUICtrlSetState($chkAir, $GUI_ENABLE)
+		GUICtrlSetState($chkGrdTroops, $GUI_ENABLE)
+		GUICtrlSetState($chkAirTroops, $GUI_ENABLE)
+	Else
+		$OptTrappedTH = 0
+		GUICtrlSetState($chkMortar, $GUI_DISABLE)
+		GUICtrlSetState($chkWiz, $GUI_DISABLE)
+		GUICtrlSetState($chkInferno, $GUI_DISABLE)
+		GUICtrlSetState($chkTesla, $GUI_DISABLE)
+		;GUICtrlSetState($chkAir, $GUI_DISABLE)
+		GUICtrlSetState($chkGrdTroops, $GUI_DISABLE)
+		GUICtrlSetState($chkAirTroops, $GUI_DISABLE)
+	EndIf
+EndFunc   ;==>chkTrappedTH
+
+Func chkSnipeWhileTrain()
+	If GUICtrlRead($chkSnipeWhileTrain) = $GUI_CHECKED Then
+		$iChkSnipeWhileTrain = 1
+		GUICtrlSetState($txtiSkipped, $GUI_ENABLE)
+	Else
+		$iChkSnipeWhileTrain = 0
+		GUICtrlSetState($txtiSkipped, $GUI_DISABLE)
+	EndIf
+EndFunc   ;==>chkSnipeWhileTrain
+
+Func chkMortar()
+	If GUICtrlRead($chkMortar) = $GUI_CHECKED Then
+		$skipMortar = 1
+	Else
+		$skipMortar = 0
+	EndIf
+EndFunc   ;==>chkMortar
+
+Func chkWiz()
+	If GUICtrlRead($chkWiz) = $GUI_CHECKED Then
+		$skipWiz = 1
+	Else
+		$skipWiz = 0
+	EndIf
+EndFunc   ;==>chkWiz
+
+Func chkInferno()
+	If GUICtrlRead($chkInferno) = $GUI_CHECKED Then
+		$skipInferno = 1
+	Else
+		$skipInferno = 0
+	EndIf
+EndFunc   ;==>chkInferno
+
+Func chkTesla()
+	If GUICtrlRead($chkTesla) = $GUI_CHECKED Then
+		$skipTesla = 1
+	Else
+		$skipTesla = 0
+	EndIf
+EndFunc   ;==>chkTesla
+
+;Func chkAir()
+;	If GUICtrlRead($chkAir) = $GUI_CHECKED Then
+;		$skipAir = 1
+;	Else
+;		$skipAir = 0
+;	EndIf
+;EndFunc   ;==>chkAir
+
+Func chkGrdTroops()
+	If GUICtrlRead($chkGrdTroops) = $GUI_CHECKED Then
+		$grdTroops = 1
+	Else
+		$grdTroops = 0
+	EndIf
+EndFunc   ;==>chkGrdTroops
+
+Func chkAirTroops()
+	If GUICtrlRead($chkAirTroops) = $GUI_CHECKED Then
+		$airTroops = 1
+	Else
+		$airTroops = 0
+	EndIf
+EndFunc   ;==>chkAirTroops

@@ -29,6 +29,7 @@
 #include "functions\Attack\ReturnHome.au3"
 #include "functions\Attack\SetSleep.au3"
 #include "functions\Attack\Unbreakable.au3"
+#include "functions\Attack\SnipeWhileTrain.au3"
 
 #include "functions\Attack\Attack Algorithms\algorithm_AllTroops.au3"
 #include "functions\Attack\Attack Algorithms\algorithm_Barch.au3"
@@ -68,6 +69,7 @@
 #include "functions\Image Search\checkWall.au3"
 ;#include "functions\Image Search\checkDElixS.au3"
 #include "functions\Image Search\CheckTombs.au3"
+#include "functions\Image Search\checkDefense.au3"
 
 #include "functions\Main Screen\checkMainScreen.au3"
 #include "functions\Main Screen\checkObstacles.au3"

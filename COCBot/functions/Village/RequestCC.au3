@@ -53,7 +53,11 @@ Func RequestCC()
 		SetLog(getLocaleString("logRequestAlreadyMade"))
 	ElseIf _ColorCheck($color, Hex($aRequestTroopsAO[4], 6), $aRequestTroopsAO[5]) Then
 		;clan full or not in clan
+		If Not $iClanLevel = "" Then
 		SetLog(getLocaleString("logCCFullOrNotInClan"))
+	Else
+		SetLog("You do not belong to a clan.")
+		EndIf
 	Else
 		;no button request found
 		SetLog(getLocaleString("logCannotDetectCCBtn"))

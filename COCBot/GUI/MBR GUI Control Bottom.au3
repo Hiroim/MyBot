@@ -45,7 +45,7 @@ Func Initiate()
 		SetLog(_PadStringCenter(" " & $sBotTitle & getLocaleString("logPoweredBy"), 50, "~"), $COLOR_PURPLE)
 		SetLog($Compiled & getLocaleString("logRunningOn") & @OSVersion & " " & @OSServicePack & " " & @OSArch)
 		If Not $bSearchMode Then
-			SetLog(_PadStringCenter(getLocaleString("logRunningOn"), 50, "="), $COLOR_GREEN)
+			SetLog(_PadStringCenter(getLocaleString("logBotStart"), 50, "="), $COLOR_GREEN)
 		Else
 			SetLog(_PadStringCenter(getLocaleString("logSearchModeStart"), 50, "="), $COLOR_GREEN)
 		EndIf

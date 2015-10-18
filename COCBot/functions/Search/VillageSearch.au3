@@ -20,6 +20,8 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 	If $debugDeadBaseImage = 1 Then
 		If DirGetSize(@ScriptDir & "\SkippedZombies\") = -1 Then DirCreate(@ScriptDir & "\SkippedZombies\")
 		If DirGetSize(@ScriptDir & "\Zombies\") = -1 Then DirCreate(@ScriptDir & "\Zombies\")
+		If DirGetSize(@ScriptDir & "\THOutside\") = -1 Then DirCreate(@ScriptDir & "\THOutside\")
+		If DirGetSize(@ScriptDir & "\THOutside\skipped\") = -1 Then DirCreate(@ScriptDir & "\THOutside\skipped")
 	EndIf
 
 	If $Is_ClientSyncError = False Then
@@ -202,9 +204,44 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 		If _Sleep($iDelayVillageSearch2) Then Return
 		If $OptTrophyMode = 1 Then ;Enables Triple Mode Settings ;---compare resources
 			If SearchTownHallLoc() Then ; attack this base anyway because outside TH found to snipe
-				SetLog(_PadStringCenter(getLocaleString("logTHOFound"), 50, "~"), $COLOR_GREEN)
-				$iMatchMode = $TS
-				ExitLoop
+				If $skipBase = False Then
+					SetLog(_PadStringCenter(getLocaleString("logTHOFound"), 50, "~"), $COLOR_GREEN)
+					$iMatchMode = $TS
+					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+						_CaptureRegion()
+						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\" & $Date & " at " & $Time & ".png")
+						_WinAPI_DeleteObject($hBitmap)
+					EndIf
+					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+						_CaptureTH()
+						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\" & $Date & " at " & $Time & "_CaptureTH.png")
+						_WinAPI_DeleteObject($hBitmap)
+					EndIf
+					ExitLoop
+				Else
+                	SetLog(getLocaleString("logTrapFound"), $COLOR_RED)
+					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+						_CaptureRegion()
+						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\skipped\" & $Date & " at " & $Time & ".png")
+						_WinAPI_DeleteObject($hBitmap)
+					EndIf
+					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+						_CaptureTH()
+						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\skipped\" & $Date & " at " & $Time & "_CaptureTH.png")
+						_WinAPI_DeleteObject($hBitmap)
+					EndIf
+                EndIf
+			EndIf
+		EndIf
+
+		; break every x searches when Snipe While Train mode is active
+		If $isSnipeWhileTrain Then
+			If $iSkipped >= ($iSkippedSWT - 1) Then
+				;ClickP($aSurrenderButton, 1, 0, "#0099") ;Click Surrender
+				ReturnHome(False, False)
+				$Restart = True
+				$Is_ClientSyncError = False
+				Return
 			EndIf
 		EndIf
 
@@ -308,7 +345,7 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 
 	; TH Detection Check Once Conditions
 	If $OptBullyMode = 0 And $OptTrophyMode = 0 And $iChkMeetTH[$iMatchMode] = 0 And $iChkMeetTHO[$iMatchMode] = 0 And $chkATH = 1 Then
-		$searchTH = checkTownhallADV()
+		$searchTH = checkTownhall()
 		If SearchTownHallLoc() = False And $searchTH <> "-" Then
 			SetLog(getLocaleString("logTHLocIn"))
 		ElseIf $searchTH <> "-" Then

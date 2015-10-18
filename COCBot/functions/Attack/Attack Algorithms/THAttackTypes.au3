@@ -360,3 +360,89 @@ Func AttackTHGbarch()
 
 EndFunc   ;==>AttackTHGbarch
 
+Func AttackTrappedTH()
+;~ 	SetLog($thinfo)
+	Setlog(getLocaleString("logAtkTHTrapped"), $COLOR_BLUE)
+
+	Setlog("Sending first wave of archers.", $COLOR_GREEN)
+	AttackTHGrid($eArch, 4, 1, Random( 1500,2000,1), 1) ; deploys 4 archers - take out possible bombs
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 3, Random(5, 6, 1), Random( 800,1000,1), 1) ; deploys 15-18 archers
+	If CheckOneStar(30) Then Return
+
+
+	Setlog("Sending second wave of barb & archers.", $COLOR_GREEN)
+	AttackTHGrid($eBarb, 3, Random(4, 5, 1), Random( 800,1000,1), 1) ; deploys up to 12-15 barbarians
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 4, Random(4, 5, 1), Random( 800,1000,1), 2) ;deploys 16-20 archers
+	If CheckOneStar(30) Then Return
+
+
+	Setlog("Still no star - Let's send in more diverse troops!", $COLOR_GREEN)
+	SpellTHGrid($eHSpell)
+    If CheckOneStar() Then Return
+	AttackTHGrid($eGiant, 2, 1, Random( 500,600,1), 1) ;deploys 2 giants in case of spring traps
+	If CheckOneStar() Then Return
+	AttackTHGrid($eGiant, 2, Random(1, 2, 1), Random( 500,600,1), 2) ;deploys 2-4 giants to take heat
+	If CheckOneStar() Then Return
+	SpellTHGrid($eRSpell)
+    If CheckOneStar() Then Return
+	AttackTHGrid($eBarb, 3, Random(4, 5, 1), Random( 800,1000,1), 1) ; deploys up to 12-15 barbarians
+	If CheckOneStar() Then Return
+	AttackTHGrid($eBarb, 4, Random(4, 5, 1), Random( 500,600,1), 1) ; deploys up to 16-20 barbarians
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 3, 8, Random( 500,600,1), 3) ; deploys 24 archers
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 4, 7, Random( 800,1000,1), 3) ; deploys 28 archers
+	If CheckOneStar(25) Then Return
+
+	Setlog("Hope the rest of your troops can finish the job!", $COLOR_GREEN)
+	For $i = $eGole to $eLava ;~ $eGole, $eWitc, $eLava
+		If CheckOneStar() Then Return
+		AttackTHGrid($i, 1, 4, Random( 800,1000,1), 0)
+	Next
+	SpellTHGrid($eHSpell)
+    If CheckOneStar() Then Return
+	For $i = $eGiant to $eValk ;~ $eGiant, $eGobl, $eWall, $eBall, $eWiza, $eHeal, $eDrag, $ePekk, $eMini, $eHogs, $eValk
+		If CheckOneStar() Then Return
+		AttackTHGrid($i, 3, 8, Random( 500,900,1), 0) ;~ deploys troops but barch
+	Next
+    AttackTHGrid($eKing) ; deploys King
+    If CheckOneStar() Then Return
+    AttackTHGrid($eQueen) ; deploys Queen
+    If CheckOneStar() Then Return
+    AttackTHGrid($eHeal,2,1,Random( 500,600,1),4)    ; deploys 2 healer
+    If CheckOneStar() Then Return
+	SpellTHGrid($eRSpell)
+	If CheckOneStar() Then Return
+	AttackTHGrid($eCastle) ; deploys CC
+    If CheckOneStar() Then Return
+	AttackTHGrid($eBarb, 4, 8, Random( 500,600,1), 2) ; deploys up to 32 barbarians
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 3, 13, Random( 500,600,1), 4) ;deploys up to 39 archers
+	If CheckOneStar() Then Return
+	AttackTHGrid($eBarb, 3, 11, Random( 500,600,1), 2) ; deploys up to 33 barbarians
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 2, 20, Random( 500,600,1), 4) ;deploys up to 40 archers
+	If CheckOneStar() Then Return
+	AttackTHGrid($eBarb, 4, 9, Random( 500,600,1), 2) ; deploys up to 36 barbarians
+	If CheckOneStar() Then Return
+	AttackTHGrid($eArch, 2, 20, Random( 500,600,1), 4) ;deploys up to 40 archers
+	If CheckOneStar() Then Return
+    AttackTHGrid($eBarb, 4, 9, Random( 500,600,1), 2) ; deploys up to 36 barbarians
+    If CheckOneStar() Then Return
+    AttackTHGrid($eArch, 2, 20, Random( 500,600,1), 4) ;deploys up to 40 archers
+    If CheckOneStar(25) Then Return
+
+	For $i = 1 To 5 ; struck TH by all lightning spells
+		If CheckOneStar() Then Return
+		CastSpell($eLSpell,$THx, $THy) ; on TH directly without offset
+	Next
+
+	SetLog("All kind of troops should be deployed, in addition to Heroes & CC & Spells (if options are selected).", $COLOR_GREEN)
+	If _Sleep(Random( 500,600,1)) Then Return
+	SetLog("~Finished Attacking, waiting to finish", $COLOR_ORANGE)
+	If CheckOneStar(20) Then Return
+
+EndFunc   ;==>AttackTrappedTH
+

@@ -46,6 +46,10 @@
 ;debugging
 Global $debugSearchArea = 0, $debugOcr = 0, $debugRedArea = 0, $debugSetlog = 0, $debugDeadBaseImage = 0
 
+Global $thinfo = "",$ct=0,$ci=0, $lmtSide0 = 0 , $lmtSide1 = 0, $lmtSide2 = 0, $lmtSide3 = 0 ; Used In SearchTownHallLoc and algorithmTH
+Global $THLimit0 = 0, $THLimit1 = 0, $THLimit2 = 0, $THLimit3 = 0 ; Used In SearchTownHallLoc
+
+
 Global Const $COLOR_ORANGE = 0xFF7700
 Global Const $bCapturePixel = True, $bNoCapturePixel = False
 
@@ -187,6 +191,7 @@ Global $ReduceCount, $ReduceGold, $ReduceElixir, $ReduceGoldPlusElixir, $ReduceD
 Global $iChkEnableAfter[$iModeCount], $iCmbMeetGE[$iModeCount], $iChkMeetDE[$iModeCount], $iChkMeetTrophy[$iModeCount], $iChkMeetTH[$iModeCount], $iChkMeetTHO[$iModeCount], $iChkMeetOne[$iModeCount], $iCmbTH[$iModeCount], $iChkWeakBase[$iModeCount]
 Global $THLocation
 Global $THx = 0, $THy = 0
+Global $Defx = 0, $Defy = 0
 Global $DESLoc
 Global $DESLocx = 0
 Global $DESLocy = 0
@@ -196,6 +201,12 @@ $THText[1] = "7"
 $THText[2] = "8"
 $THText[3] = "9"
 $THText[4] = "10"
+Global $DefText[5] ; Text of Defense Type
+$DefText[0] = getLocaleString("defTxtInferno")
+$DefText[1] = getLocaleString("defTxtWizTower")
+$DefText[2] = getLocaleString("defTxtMortar")
+$DefText[3] = getLocaleString("defTxtTesla")
+$DefText[4] = getLocaleString("defTxtAirDef")
 Global $SearchCount = 0 ;Number of searches
 
 Global $THaddtiles, $THside, $THi
@@ -225,8 +236,25 @@ Global $ichkUseClastleTH  = 0
 Global $ichkUseLSpellsTH = 0
 Global $ichkUseRSpellsTH = 0
 Global $ichkUseHSpellsTH = 0
+;Check Defense
+Global $OptTrappedTH, $skipInferno, $skipTesla, $skipMortar, $skipWiz, $skipAir, $grdTroops, $airTroops
+Global $allTroops = False, $skipBase = False
+Global $searchDef
+Global $thinfo
+;Snipe While Train
+Global $DidntRevert
+Global $iChkSnipeWhileTrain, $isSnipeWhileTrain, $iSkippedSWT
+Global $tempSnipeWhileTrain[12] = [0,0,0,0,0,0,0,0,0,0,0,0]
+;Advanced TH Search - Tile Gap Mod
 
-
+Global $CTHx
+Global $CTHy
+Global $z
+Global $ct
+Global $ci
+Global $debugTH
+Global $atkTHADV
+Global $ToleranceTH
 
 Global $TrainSpecial = 1 ;0=Only trains after atk. Setting is automatic
 Global $cBarbarian = 0, $cArcher = 0, $cGoblin = 0, $cGiant = 0, $cWallbreaker = 0, $cWizard = 0, $cBalloon = 0, $cDragon = 0, $cPekka = 0, $cMinion = 0, $cHogs = 0, $cValkyrie = 0, $cGolem = 0, $cWitch = 0, $cLavaHound = 0
@@ -238,10 +266,15 @@ Global $WallX = 0, $WallY = 0
 Global $Wall[8]
 
 ;Attack Settings
-Global $TopLeft[5][2] = [[79, 281], [170, 205], [234, 162], [296, 115], [368, 66]]
-Global $TopRight[5][2] = [[480, 63], [540, 104], [589, 146], [655, 190], [779, 278]]
-Global $BottomLeft[5][2] = [[79, 342], [142, 389], [210, 446], [276, 492], [339, 539]]
-Global $BottomRight[5][2] = [[523, 537], [595, 484], [654, 440], [715, 393], [779, 344]]
+;Global $TopLeft[5][2] = [[79, 281], [170, 205], [234, 162], [296, 115], [368, 66]]
+;Global $TopRight[5][2] = [[480, 63], [540, 104], [589, 146], [655, 190], [779, 278]]
+;Global $BottomLeft[5][2] = [[79, 342], [142, 389], [210, 446], [276, 492], [339, 539]]
+;Global $BottomRight[5][2] = [[523, 537], [595, 484], [654, 440], [715, 393], [779, 344]]
+;Mod
+Global $TopLeft[5][2] = [[79, 278], [150, 219], [220, 163], [296, 106], [383, 55]]
+Global $TopRight[5][2] = [[487, 55], [571, 106], [645, 163], [717, 219], [781, 278]]
+Global $BottomLeft[5][2] = [[79, 345], [149, 403], [220, 459], [296, 516], [383, 567]]
+Global $BottomRight[5][2] = [[488, 567], [570, 516], [645, 459], [718, 404], [782, 346]]
 Global $eThing[1] = [101]
 Global $Edges[4] = [$BottomRight, $TopLeft, $BottomLeft, $TopRight]
 Global $BarbarianKingAvailable = 0
@@ -319,6 +352,10 @@ Global $SFPos[2] = [-1, -1] ;Position of Spell Factory
 Global $DSFPos[2] = [-1, -1] ;Position of Dark Spell Factory
 Global $KingAltarPos[2] = [-1,-1] ; position Kings Altar
 Global $QueenAltarPos[2] = [-1,-1] ; position Queens Altar
+
+;Upgrade Heroes
+Global $ichkUpgradeKing = 0
+Global $ichkUpgradeQueen = 0
 
 ;Donate Settings
 Global $aCCPos[2] = [-1, -1] ;Position of clan castle
