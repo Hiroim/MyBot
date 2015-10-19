@@ -19,7 +19,7 @@ Func UpgradeWall()
 
 	If $ichkWalls = 1 Then
 		If $iFreeBuilderCount > 0 Then
-			SetLog("Checking Upgrade Walls", $COLOR_BLUE)
+			SetLog(getLocaleString("logWallCheckUpgrade"), $COLOR_BLUE)
 
 			ClickP($aAway,1,0,"#0313") ; click away
 
