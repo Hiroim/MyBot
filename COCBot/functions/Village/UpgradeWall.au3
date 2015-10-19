@@ -19,7 +19,7 @@ Func UpgradeWall()
 
 	If $ichkWalls = 1 Then
 		If $iFreeBuilderCount > 0 Then
-			SetLog("Checking Upgrade Walls", $COLOR_BLUE)
+			SetLog(getLocaleString("logWallCheckUpgrade"), $COLOR_BLUE)
 
 			ClickP($aAway,1,0,"#0313") ; click away
 
@@ -58,7 +58,7 @@ Func UpgradeWall()
 					EndIf
 			EndSwitch
 
-			ClickP($aAway,1,0,"#0314") ; click away
+			ClickP($aAway,2,0,"#0314") ; click away
 			If _Sleep(100) Then Return
 
 			Click(820, 40,1,0,"#0315") ; Close Builder/Shop if open by accident
