@@ -55,7 +55,7 @@ $tabAttack = GUICtrlCreateTabItem(getLocaleString("tabAttack"))
 			GUICtrlSetData(-1, getLocaleString("cmbDBSmartDeploy"), getLocaleString("cmbDBSmartDeployDefault"))
 			GUICtrlSetTip(-1, getLocaleString("tipSmartDeploy",1), getLocaleString("tipSmartDeployTitle"))
 		$y += 26
-		$chkDbAttackNearGoldMine = GUICtrlCreateCheckbox(getLocaleString("chkAttackNearGoldMine"), $x + 20, $y, 17, 17)
+		$chkDbAttackNearGoldMine = GUICtrlCreateCheckbox("", $x + 20, $y, 17, 17)
 			GUICtrlSetTip(-1, getLocaleString("tipChkAttackNearGoldMine"))
 		$picDBAttackNearGoldMine = GUICtrlCreateIcon($pIconLib, $eIcnMine, $x + 40 , $y - 3 , 24, 24)
 			GUICtrlSetTip(-1, getLocaleString("tipChkAttackNearGoldMine"))

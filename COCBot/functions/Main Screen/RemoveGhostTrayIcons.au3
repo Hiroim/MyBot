@@ -19,7 +19,7 @@ Func RemoveGhostTrayIcons()
 
 	Local $hTrayVisible = ControlGetHandle('[Class:Shell_TrayWnd]', '', '[Class:ToolbarWindow32;Instance:1]')
 	If @error Then
-		Setlog(getLocaleString("logSysTrayNotFound"), $COLOR_MAROON)
+		Setlog(getLocaleString("logSysTrayNotFound"), $COLOR_RED)
 		Return SetError(1, @extended, -1)
 	Else
 		Setlog("Checking system tray for ghost icons", $COLOR_GREEN)
