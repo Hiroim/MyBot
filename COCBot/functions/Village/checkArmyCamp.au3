@@ -14,6 +14,7 @@
 ; ===============================================================================================================================
 
 Func checkArmyCamp()
+
 	Local $aGetArmySize[3] = ["", "", ""]
 	Local $aGetSFactorySize[3] = ["", "", ""]
 	Local $sArmyInfo = ""
@@ -22,75 +23,67 @@ Func checkArmyCamp()
 	Local $TroopName = 0
 	Local $TroopQ = 0
 	Local $TroopTypeT = ""
+	Local $sInputbox, $iCount, $iTried, $iHoldCamp
+	Local $tmpTotalCamp = 0
+	Local $tmpCurCamp = 0
 
-	Local $sInputbox, $iCount, $iTried, $tmpTotalCamp, $tmpCurCamp, $iHoldCamp
-
-	SetLog("Checking Army Camp...", $COLOR_BLUE)
+	SetLog(getLocaleString("logCheckAC"), $COLOR_BLUE)
 	If _Sleep($iDelaycheckArmyCamp1) Then Return
-
-	ClickP($aAway, 1, 0, "#0292") ;Click Away
-	If _Sleep($iDelaycheckArmyCamp1) Then Return
-
-	Click($aArmyTrainButton[0], $aArmyTrainButton[1], 1, 0, "#0293") ;Click Army Camp
-	If _Sleep($iDelaycheckArmyCamp2) Then Return
 
 	$iTried = 0 ; reset loop safety exit counter
 	$sArmyInfo = getArmyCampCap(212, 144) ; OCR read army trained and total
 	If $debugSetlog = 1 Then Setlog("OCR $sArmyInfo = " & $sArmyInfo, $COLOR_PURPLE)
-	While 1
-		If _Sleep($iDelaycheckArmyCamp4) Then Return ; Short wait before checking value again
-		$iCount = 0 ; reset OCR loop counter
-		While $sArmyInfo = "" ; In case the CC donations recieved msg are blocking, need to keep checking numbers till valid
-			$sArmyInfo = getArmyCampCap(212, 144) ; OCR read army trained and total
-			If $debugSetlog = 1 Then Setlog("OCR $sArmyInfo = " & $sArmyInfo, $COLOR_PURPLE)
-			$iCount += 1
-			If $iCount > 30 Then ExitLoop ; try reading 30 times for 250+150ms OCR for 12 sec
-			If _Sleep($iDelaycheckArmyCamp5) Then Return ; Wait 250ms
-		WEnd
+
+	While $iTried < 100 ; 30 - 40 sec
+
 		$iTried += 1
+		If _Sleep($iDelaycheckArmyCamp5) Then Return ; Wait 250ms before reading again
+		$sArmyInfo = getArmyCampCap(212, 144) ; OCR read army trained and total
+		If $debugSetlog = 1 Then Setlog("OCR $sArmyInfo = " & $sArmyInfo, $COLOR_PURPLE)
+		If StringInStr($sArmyInfo, "#", 0, 1) < 2 Then ContinueLoop ; In case the CC donations recieved msg are blocking, need to keep checking numbers till valid
+
 		$aGetArmySize = StringSplit($sArmyInfo, "#") ; split the trained troop number from the total troop number
 		If IsArray($aGetArmySize) Then
 			If $aGetArmySize[0] > 1 Then ; check if the OCR was valid and returned both values
+				If Number($aGetArmySize[2]) < 10 Or Mod(Number($aGetArmySize[2]), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
+					If $debugSetlog = 1 Then Setlog(" OCR value is not valid camp size", $COLOR_PURPLE)
+					ContinueLoop
+				EndIf
 				$tmpCurCamp = Number($aGetArmySize[1])
 				If $debugSetlog = 1 Then Setlog("$tmpCurCamp = " & $tmpCurCamp, $COLOR_PURPLE)
 				$tmpTotalCamp = Number($aGetArmySize[2])
 				If $debugSetlog = 1 Then Setlog("$TotalCamp = " & $TotalCamp & ", Camp OCR = " & $aGetArmySize[2], $COLOR_PURPLE)
-				If Mod(Int($tmpTotalCamp), 5) <> 0 Then ; check to see if camp size is multiple of 5, or try to read again
-					If $debugSetlog = 1 Then Setlog(" OCR value is not valid camp size", $COLOR_PURPLE)
-					If $iTried > 2 Then ExitLoop ; try to read camp values 3 times or wait upto 36 seconds for donation messages to clear and prevent other errors.
-					ContinueLoop
-				EndIf
 				If $iHoldCamp = $tmpTotalCamp Then ExitLoop ; check to make sure the OCR read value is same in 2 reads before exit
 				$iHoldCamp = $tmpTotalCamp ; Store last OCR read value
 			EndIf
 		EndIf
-		If $iTried > 2 Then ExitLoop ; try to read camp values 5 times or wait max of 36 seconds for donation messages to clear.
+
 	WEnd
 
-	If $iTried <= 2 Then
+	If $iTried <= 99 Then
 		$CurCamp = $tmpCurCamp
 		If $TotalCamp = 0 Then $TotalCamp = $tmpTotalCamp
 		If $debugSetlog = 1 Then Setlog("$CurCamp = " & $CurCamp & ", $TotalCamp = " & $TotalCamp, $COLOR_PURPLE)
 	Else
-		Setlog("Army size read error, Troop numbers may not train correctly", $COLOR_RED) ; log if there is read error
+		Setlog(getLocaleString("logCampReadError"), $COLOR_RED) ; log if there is read error
 		$CurCamp = 0
 		CheckOverviewFullArmy()
 	EndIf
 
 	If $TotalCamp = 0 Or ($TotalCamp <> $tmpTotalCamp) Then ; if Total camp size is still not set or value not same as read use forced value
 		If $ichkTotalCampForced = 0 Then ; check if forced camp size set in expert tab
-			$sInputbox = InputBox("Question", "Enter your total Army Camp capacity", "200", "", Default, Default, Default, Default, 240, $frmbot)
+			$sInputbox = InputBox(getLocaleString("inputTotalCampTitle"), getLocaleString("inputTotalCamp"), "200", "", Default, Default, Default, Default, 0, $frmbot)
 			$TotalCamp = Number($sInputbox)
 			$iValueTotalCampForced = $TotalCamp
 			$ichkTotalCampForced = 1
-			Setlog("Army Camp User input = " & $TotalCamp, $COLOR_RED) ; log if there is read error AND we ask the user to tell us.
+			Setlog(getLocaleString("inputCampError") & $TotalCamp, $COLOR_RED) ; log if there is read error AND we ask the user to tell us.
 		Else
 			$TotalCamp = Number($iValueTotalCampForced)
 		EndIf
 	EndIf
 	If _Sleep($iDelaycheckArmyCamp4) Then Return
 
-	SetLog("Total Army Camp capacity: " & $CurCamp & "/" & $TotalCamp)
+	SetLog(getLocaleString("logTotalArmyCamp") & $CurCamp & "/" & $TotalCamp)
 
 	If ($CurCamp >= ($TotalCamp * $fulltroop / 100)) And $CommandStop = -1 Then
 		$fullArmy = True
@@ -229,20 +222,20 @@ Func checkArmyCamp()
 	If Not _ColorCheck(_GetPixelColor(485, 475, True), Hex(0xD3D3CA, 6), 10) Then
 		; Slot 1
 		If _ColorCheck(_GetPixelColor(485, 475, True), Hex(0x808650, 6), 20) Then
-			Setlog(" - Archer Queen available")
+			Setlog(getLocaleString("logAQAvailable"))
 			$ArcherQueenAvailable = 1
 		EndIf
 		If _ColorCheck(_GetPixelColor(485, 475, True), Hex(0x503838, 6), 20) Then
-			Setlog(" - Barbarian King available")
+			Setlog(getLocaleString("logBKAvailable"))
 			$BarbarianKingAvailable = 1
 		EndIf
 		; Slot 2
 		If _ColorCheck(_GetPixelColor(547, 475, True), Hex(0x808650, 6), 20) Then
-			Setlog(" - Archer Queen available")
+			Setlog(getLocaleString("logAQAvailable"))
 			$ArcherQueenAvailable = 1
 		EndIf
 		If _ColorCheck(_GetPixelColor(547, 475, True), Hex(0x503838, 6), 20) Then
-			Setlog(" - Barbarian King available")
+			Setlog(getLocaleString("logBKAvailable"))
 			$BarbarianKingAvailable = 1
 		EndIf
 	EndIf
@@ -251,7 +244,7 @@ Func checkArmyCamp()
 	If $iTotalCountSpell > 0 Then ; only use this code if the user had input spells to brew ... and assign the spells quantity
 		$sSpellsInfo = getArmyCampCap(204, 391) ; OCR read Spells and total capacity
 
-        $iCount = 0 ; reset OCR loop counter
+		$iCount = 0 ; reset OCR loop counter
 		While $sSpellsInfo = "" ; In case the CC donations recieved msg are blocking, need to keep checking numbers till valid
 			$sSpellsInfo = getArmyCampCap(204, 391) ; OCR read Spells and total capacity
 			$iCount += 1
@@ -268,17 +261,25 @@ Func checkArmyCamp()
 				$TotalSFactory = Number($aGetSFactorySize[2])
 				$CurSFactory = Number($aGetSFactorySize[1])
 			Else
-				Setlog("Spell Factory size read error.", $COLOR_RED) ; log if there is read error
+				Setlog(getLocaleString("logSpellSizeReadError"), $COLOR_RED) ; log if there is read error
 				$CurSFactory = 0
 				$TotalSFactory = $iTotalCountSpell
 			EndIf
 		Else
-			Setlog("Spell Factory size read error.", $COLOR_RED) ; log if there is read error
+			Setlog(getLocaleString("logSpellSizeReadError"), $COLOR_RED) ; log if there is read error
 			$CurSFactory = 0
 			$TotalSFactory = $iTotalCountSpell
 		EndIf
 
-		SetLog("Total Spell(s) Capacity: " & $CurSFactory & "/" & $TotalSFactory)
+		SetLog(getLocaleString("logTotalSpellCap") & $CurSFactory & "/" & $TotalSFactory)
+		$CurLightningSpell = 0
+		$CurHealSpell = 0
+		$CurRageSpell = 0
+		$CurJumpSpell = 0
+		$CurFreezeSpell = 0
+		$CurPoisonSpell = 0
+		$CurHasteSpell = 0
+		$CurEarthSpell = 0
 
 		For $i = 0 To 4 ; 5 visible slots in ArmyoverView window
 			If $debugSetlog = 1 Then Setlog(" Slot : " & $i + 1)
@@ -289,35 +290,35 @@ Func checkArmyCamp()
 			If $debugSetlog = 1 Then Setlog(" getOcrSpellQuantity: " & $SpellQ)
 			If $FullTemp = "Lightning" Then
 				$CurLightningSpell = $SpellQ
-				Setlog(" - No. of LightningSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameLightningSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Heal" Then
 				$CurHealSpell = $SpellQ
-				Setlog(" - No. of HealSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameHealingSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Rage" Then
 				$CurRageSpell = $SpellQ
-				Setlog(" - No. of RageSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameRageSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Jump" Then
 				$CurJumpSpell = $SpellQ
-				Setlog(" - No. of JumpSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameJumpSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Freeze" Then
 				$CurFreezeSpell = $SpellQ
-				Setlog(" - No. of FreezeSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameFreezeSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Poison" Then
 				$CurPoisonSpell = $SpellQ
-				Setlog(" - No. of PoisonSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNamePoisonSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Haste" Then
 				$CurHasteSpell = $SpellQ
-				Setlog(" - No. of HasteSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameHasteSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "Earth" Then
 				$CurEarthSpell = $SpellQ
-				Setlog(" - No. of EarthquakeSpell: " & $SpellQ)
+				Setlog(getLocaleString("logTroopsNoOf") & getLocaleString("sNameEarthquakeSpell") &  ": " & $SpellQ & getLocaleString("logSpellsNo0f2"))
 			EndIf
 			If $FullTemp = "" And $debugSetlog = 1 Then
 				Setlog(" - was not detected anything in slot: " & $i + 1)
@@ -332,7 +333,7 @@ Func checkArmyCamp()
 		BarracksStatus(False)
 	EndIf
 
-	ClickP($aAway, 1, 0, "#0295") ;Click Away
+;~ 	ClickP($aAway, 1, 0, "#0295") ;Click Away
 	$FirstCampView = True
 
 EndFunc   ;==>checkArmyCamp

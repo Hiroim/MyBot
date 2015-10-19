@@ -19,6 +19,7 @@
  $tabAttackAdv = GUICtrlCreateTabItem(getLocaleString("tabAttackAdv"))
 	Local $x = 30, $y = 150
 	$grpAtkOptions = GUICtrlCreateGroup(getLocaleString("grpAtkOptions"), $x - 20, $y - 20, 450, 85)
+		$y -=5
 		$chkAttackNow = GUICtrlCreateCheckbox(getLocaleString("chkAttackNow"), $x - 10, $y, -1, -1)
 			GUICtrlSetTip(-1, getLocaleString("tipChkAttackNow",1))
 			GUICtrlSetOnEvent(-1, "chkAttackNow")

@@ -19,11 +19,11 @@
 #pragma compile(FileDescription, Clash of Clans Bot - A Free Clash of Clans bot - https://mybot.run)
 #pragma compile(ProductName, My Bot)
 
-#pragma compile(ProductVersion, 4.2)
-#pragma compile(FileVersion, 4.2)
+#pragma compile(ProductVersion, 4.2.1)
+#pragma compile(FileVersion, 4.2.1)
 #pragma compile(LegalCopyright, © https://mybot.run)
 
-$sBotVersion = "v4.2"
+$sBotVersion = "v4.2.1"
 $sBotTitle = "My Bot " & $sBotVersion
 Global $sBotDll = @ScriptDir & "\MBRPlugin.dll"
 Global $StartupLanguage = IniRead(@ScriptDir & "\COCBot\GUI\localization\lang.ini", "config", "language", "English")
@@ -118,7 +118,7 @@ Func runBot() ;Bot that runs everything in order
 			;    checkMainScreen(False)
 			;    If $Restart = True Then ContinueLoop
 			;EndIf
-			if $RequestScreenshot = 1 then PushMsg("RequestScreenshot")
+			If $RequestScreenshot = 1 then PushMsg("RequestScreenshot")
 				If _Sleep($iDelayRunBot3) Then Return
 			VillageReport()
 				If $OutOfGold = 1  And ($iGoldCurrent >= $itxtRestartGold) Then  ; check if enough gold to begin searching again

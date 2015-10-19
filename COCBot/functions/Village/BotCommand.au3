@@ -100,7 +100,7 @@ Func BotCommand()
 					Shutdown(32) ; Sleep / Stand by
 					Return True
 				Case 3
-					SetLog("Reebooting PC...", $COLOR_BLUE)
+					SetLog(getLocaleString("logHaltReboot"), $COLOR_BLUE)
 					If _Sleep($iDelayBotCommand1) Then Return
 					Shutdown($SD_REBOOT ) ; Reboot
 					Return True
