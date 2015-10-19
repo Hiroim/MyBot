@@ -13,24 +13,24 @@
 Func UpgradeHeroes()
 	If $ichkUpgradeKing = 0 And $ichkUpgradeQueen = 0 Then Return
 	
-	SetLog("Upgrade Heroes", $COLOR_BLUE)
+	SetLog(getLocaleString("logCheckingHeroUpgrades"), $COLOR_BLUE)
 
 	If $iFreeBuilderCount < 1 + $iSaveWallBldr Then
-	   SetLog("Not Enough Builder", $COLOR_RED)
+	   SetLog(getLocaleString("logHeroesNotEnoughBuilder"), $COLOR_RED)
 	   Return
 	EndIf
 	
-	If $LabNeedsDE = 1 Then
-	   SetLog("Lab Needs DE", $COLOR_RED)
-	   Return
-	EndIf
+	;If $LabNeedsDE = 1 Then
+	;   SetLog(getLocaleString("logLabNeedsDE"), $COLOR_RED)
+	;   Return
+	;EndIf
 	
 
 	
 ;upgradequeen
 	If $ichkUpgradeQueen = 1 Then	
 
-		SetLog("Upgrade Queen")
+		SetLog(getLocaleString("logCheckUpgradeQueen"))
 		Click($QueenAltarPos[0], $QueenAltarPos[1]) ;Click Queen Altar
 		If _Sleep(500) Then Return
 		
@@ -38,7 +38,7 @@ Func UpgradeHeroes()
 		$sInfo = BuildingInfo(250, 520)
 		If $sInfo[0] > 1 Or $sInfo[0] = "" Then
 			If  StringInStr($sInfo[1], "Quee") = 0 Then
-				SetLog("Bad AQ location", $COLOR_ORANGE)	
+				SetLog(getLocaleString("logBadAQLoc"), $COLOR_ORANGE)
 				return
 			EndIf
 		EndIf
@@ -49,13 +49,13 @@ Func UpgradeHeroes()
 		If _ColorCheck(_GetPixelColor(605, 570), Hex(0xD8EC71, 6), 20) Then ; Finds Heal button
 			QueenUpgrade()
 		ElseIf _ColorCheck(_GetPixelColor(595, 570), Hex(0xE70A12, 6), 20) Then ; Red numbers
-			SetLog("Not Enough DE for AQ", $COLOR_ORANGE)
+			SetLog(getLocaleString("logInsufficientDEAQ"), $COLOR_ORANGE)
 			If _Sleep(1000) Then Return
 			ClickP($aTopLeftClient,1,0,"#0121") ; click away
 			If _Sleep(500) Then Return
 		Else
 			If _ColorCheck(_GetPixelColor(554, 570), Hex(0xC8EE6A, 6), 20) Then ; Green color
-				SetLog("Queen is Upgrading", $COLOR_ORANGE)
+				SetLog(getLocaleString("logQueenIsUpgrading"), $COLOR_ORANGE)
 				If _Sleep(1000) Then Return
 				ClickP($aTopLeftClient,1,0,"#0121") ; click away
 				If _Sleep(500) Then Return
@@ -66,12 +66,12 @@ Func UpgradeHeroes()
 				If _Sleep(500) Then Return
 				_CaptureRegion()
 				If _ColorCheck(_GetPixelColor(743, 152), Hex(0xE51016, 6), 20) Then ;red arrow
-					SetLog("Queen At Max Level", $COLOR_RED)
+					SetLog(getLocaleString("logQueenMaxLv"), $COLOR_RED)
 					ClickP($aTopLeftClient,1,0,"#0121") ; click away				
 					GUICtrlSetState($chkUpgradeQueen, $GUI_UNCHECKED)
 					If _Sleep(500) Then Return
 				Else
-					SetLog("Queen Upgraded", $COLOR_BLUE)
+					SetLog(getLocaleString("logQueenUpgraded"), $COLOR_BLUE)
 					ClickP($aTopLeftClient,1,0,"#0121") ; click away
 					If _Sleep(500) Then Return
 				EndIf
@@ -83,8 +83,8 @@ Func UpgradeHeroes()
 		If _Sleep(500) Then Return
 	EndIf
 
-	If $iFreeBuilderCount < 1 + $iSaveWallBldr Then3
-		SetLog("Not Enough Builder", $COLOR_RED)
+	If $iFreeBuilderCount < 1 + $iSaveWallBldr Then
+		SetLog(getLocaleString("logHeroesNotEnoughBuilder"), $COLOR_RED)
 		Return
 	EndIf
 
@@ -92,14 +92,14 @@ Func UpgradeHeroes()
 ;upgradeking
 	If $ichkUpgradeKing = 1 Then
 
-		SetLog("Upgrade King")
+		SetLog(getLocaleString("logCheckUpgradeKing"))
 		Click($KingAltarPos[0], $KingAltarPos[1]) ;Click King Altar
 		If _Sleep(500) Then Return
 		
 		$sInfo = BuildingInfo(250, 520)
 		If $sInfo[0] > 1 Or $sInfo[0] = "" Then
 			If  (StringInStr($sInfo[1], "Barb") = 0) And (StringInStr($sInfo[1], "King") = 0) Then
-				SetLog("Bad BK location", $COLOR_ORANGE)	
+				SetLog(getLocaleString("logBadBKLoc"), $COLOR_ORANGE)	
 				return
 			EndIf
 		EndIf
@@ -110,13 +110,13 @@ Func UpgradeHeroes()
 		If _ColorCheck(_GetPixelColor(605, 570), Hex(0xD8EC71, 6), 20) Then ; Finds Heal button
 			KingUpgrade()
 		ElseIf _ColorCheck(_GetPixelColor(595, 570), Hex(0xE70A12, 6), 20) Then ; Red numbers
-			SetLog("Not Enough DE for BK", $COLOR_ORANGE)
+			SetLog(getLocaleString("logInsufficientDEBK"), $COLOR_ORANGE)
 			If _Sleep(1000) Then Return
 			ClickP($aTopLeftClient,1,0,"#0121") ; click away
 			If _Sleep(500) Then Return
 		Else
 			If _ColorCheck(_GetPixelColor(554, 570), Hex(0xC8EE6A, 6), 20) Then ; Green color
-				SetLog("King is Upgrading", $COLOR_ORANGE)
+				SetLog(getLocaleString("logKingIsUpgrading"), $COLOR_ORANGE)
 			    If _Sleep(1000) Then Return
 				ClickP($aTopLeftClient,1,0,"#0121") ; click away
 				If _Sleep(500) Then Return
@@ -127,12 +127,12 @@ Func UpgradeHeroes()
 				If _Sleep(500) Then Return
 				_CaptureRegion()
 				If _ColorCheck(_GetPixelColor(743, 152), Hex(0xE51016, 6), 20) Then ;red arrow
-					SetLog("King At Max Level", $COLOR_RED)
+					SetLog(getLocaleString("logKingMaxLv"), $COLOR_RED)
 					ClickP($aTopLeftClient,1,0,"#0121") ; click away
 					GUICtrlSetState($chkUpgradeKing, $GUI_UNCHECKED)
 					If _Sleep(500) Then Return
 				Else
-					SetLog("King Upgraded", $COLOR_BLUE)
+					SetLog(getLocaleString("logKingUpgraded"), $COLOR_BLUE)
 					ClickP($aTopLeftClient,1,0,"#0121") ; click away
 					If _Sleep(500) Then Return
 				EndIf
@@ -146,7 +146,7 @@ EndFunc
 Func KingUpgrade()
 	_CaptureRegion()
 	If _ColorCheck(_GetPixelColor(501, 570), Hex(0xE70A12, 6), 20) Then ; Red numbers
-		SetLog("Not Enough DE for BK", $COLOR_ORANGE)
+		SetLog(getLocaleString("logInsufficientDEBK"), $COLOR_ORANGE)
 		If _Sleep(1000) Then Return
 		ClickP($aTopLeftClient,1,0,"#0121") ; click away
 		If _Sleep(500) Then Return
@@ -157,12 +157,12 @@ Func KingUpgrade()
 		If _Sleep(500) Then Return
 		_CaptureRegion()
 		If _ColorCheck(_GetPixelColor(743, 152), Hex(0xE51016, 6), 20) Then ;red arrow
-			SetLog("King At Max Level", $COLOR_RED)
+			SetLog(getLocaleString("logKingMaxLv"), $COLOR_RED)
 			ClickP($aTopLeftClient,1,0,"#0121") ; click away
 			GUICtrlSetState($chkUpgradeKing, $GUI_UNCHECKED)
 			If _Sleep(500) Then Return
 		Else
-			SetLog("King Upgraded", $COLOR_BLUE)
+			SetLog(getLocaleString("logKingUpgraded"), $COLOR_BLUE)
 			If _Sleep(1000) Then Return
 			ClickP($aTopLeftClient,1,0,"#0121") ; click away
 			If _Sleep(500) Then Return
@@ -173,7 +173,7 @@ EndFunc
 Func QueenUpgrade()
 	_CaptureRegion()
 	If _ColorCheck(_GetPixelColor(501, 570), Hex(0xE70A12, 6), 20) Then ; Red numbers
-		SetLog("Not Enough DE for AQ", $COLOR_ORANGE)
+		SetLog(getLocaleString("logInsufficientDEAQ"), $COLOR_ORANGE)
 		If _Sleep(1000) Then Return
 		ClickP($aTopLeftClient,1,0,"#0121") ; click away
 		If _Sleep(500) Then Return
@@ -184,13 +184,13 @@ Func QueenUpgrade()
 		If _Sleep(500) Then Return
 			_CaptureRegion()
 		If _ColorCheck(_GetPixelColor(743, 152), Hex(0xE51016, 6), 20) Then ;red arrow
-			SetLog("Queen At Max Level", $COLOR_RED)
+			SetLog(getLocaleString("logQueenMaxLv"), $COLOR_RED)
 
 			ClickP($aTopLeftClient,1,0,"#0121") ; click away
 			GUICtrlSetState($chkUpgradeQueen, $GUI_UNCHECKED)
 			If _Sleep(500) Then Return
 		Else
-			SetLog("Queen Upgraded", $COLOR_BLUE)
+			SetLog(getLocaleString("logQueenUpgraded"), $COLOR_BLUE)
 			If _Sleep(1000) Then Return
 			ClickP($aTopLeftClient,1,0,"#0121") ; click away
 			If _Sleep(500) Then Return

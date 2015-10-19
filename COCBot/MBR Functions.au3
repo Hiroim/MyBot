@@ -182,6 +182,7 @@
 #include "functions\Village\VillageReport.au3"
 #include "functions\Village\isBarrack.au3"
 #include "functions\Village\UpgradeBuilding.au3"
+#include "functions\Village\UpgradeHeroes.au3"
 #include "functions\Village\UpgradeWall.au3"
 #include "functions\Village\PushBullet.au3"
 #include "functions\Village\Laboratory.au3"

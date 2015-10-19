@@ -111,10 +111,9 @@ Func BotDetectFirstTime()
 			ClickP($aAway,1,0,"#0121") ; click away
 			If _Sleep(500) Then Return
 			If $sInfo[0] > 1 Or $sInfo[0] = "" Then
-				If  (StringInStr($sInfo[1], "Barb") = 0) And (StringInStr($sInfo[1], "King") = 0) Then
+				If (StringInStr($sInfo[1], "Barb") = 0) And (StringInStr($sInfo[1], "King") = 0) Then
 					SetLog("Hatalý Barbar Kral konumu, yeniden konumlandýrýlýyor...", $COLOR_RED)
 					LocateKingAltar()
-					SaveConfig()
 				EndIf
 			EndIf
 		EndIf
@@ -132,7 +131,7 @@ Func BotDetectFirstTime()
 			ClickP($aAway,1,0,"#0121") ; click away
 			If _Sleep(500) Then Return
 			If $sInfo[0] > 1 Or $sInfo[0] = "" Then
-				If  StringInStr($sInfo[1], "Quee") = 0 Then
+				If StringInStr($sInfo[1], "Quee") = 0 Then
 					SetLog("Hatalý Okçu Kraliçe konumu, yeniden konumlandýrýlýyor...", $COLOR_RED)
 					LocateQueenAltar()
 				EndIf
