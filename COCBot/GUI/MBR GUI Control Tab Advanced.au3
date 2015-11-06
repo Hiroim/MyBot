@@ -117,7 +117,7 @@ Func chkTrappedTH()
 		GUICtrlSetState($chkTesla, $GUI_ENABLE)
 		;GUICtrlSetState($chkAir, $GUI_ENABLE)
 		GUICtrlSetState($chkGrdTroops, $GUI_ENABLE)
-		GUICtrlSetState($chkAirTroops, $GUI_ENABLE)
+		;GUICtrlSetState($chkAirTroops, $GUI_ENABLE)
 	Else
 		$OptTrappedTH = 0
 		GUICtrlSetState($chkMortar, $GUI_DISABLE)
@@ -126,7 +126,7 @@ Func chkTrappedTH()
 		GUICtrlSetState($chkTesla, $GUI_DISABLE)
 		;GUICtrlSetState($chkAir, $GUI_DISABLE)
 		GUICtrlSetState($chkGrdTroops, $GUI_DISABLE)
-		GUICtrlSetState($chkAirTroops, $GUI_DISABLE)
+		;GUICtrlSetState($chkAirTroops, $GUI_DISABLE)
 	EndIf
 EndFunc   ;==>chkTrappedTH
 
@@ -172,14 +172,6 @@ Func chkTesla()
 	EndIf
 EndFunc   ;==>chkTesla
 
-;Func chkAir()
-;	If GUICtrlRead($chkAir) = $GUI_CHECKED Then
-;		$skipAir = 1
-;	Else
-;		$skipAir = 0
-;	EndIf
-;EndFunc   ;==>chkAir
-
 Func chkGrdTroops()
 	If GUICtrlRead($chkGrdTroops) = $GUI_CHECKED Then
 		$grdTroops = 1
@@ -187,11 +179,3 @@ Func chkGrdTroops()
 		$grdTroops = 0
 	EndIf
 EndFunc   ;==>chkGrdTroops
-
-Func chkAirTroops()
-	If GUICtrlRead($chkAirTroops) = $GUI_CHECKED Then
-		$airTroops = 1
-	Else
-		$airTroops = 0
-	EndIf
-EndFunc   ;==>chkAirTroops

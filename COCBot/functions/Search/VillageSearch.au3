@@ -20,6 +20,9 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 	If $debugDeadBaseImage = 1 Then
 		If DirGetSize(@ScriptDir & "\SkippedZombies\") = -1 Then DirCreate(@ScriptDir & "\SkippedZombies\")
 		If DirGetSize(@ScriptDir & "\Zombies\") = -1 Then DirCreate(@ScriptDir & "\Zombies\")
+	EndIf
+
+	If $debugOutsideTHImage = 1 Then
 		If DirGetSize(@ScriptDir & "\THOutside\") = -1 Then DirCreate(@ScriptDir & "\THOutside\")
 		If DirGetSize(@ScriptDir & "\THOutside\skipped\") = -1 Then DirCreate(@ScriptDir & "\THOutside\skipped")
 	EndIf
@@ -207,12 +210,12 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 				If $skipBase = False Then
 					SetLog(_PadStringCenter(getLocaleString("logTHOFound"), 50, "~"), $COLOR_GREEN)
 					$iMatchMode = $TS
-					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+					If $debugOutsideTHImage = 1 Then
 						_CaptureRegion()
 						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\" & $Date & " at " & $Time & ".png")
 						_WinAPI_DeleteObject($hBitmap)
 					EndIf
-					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+					If $debugOutsideTHImage = 1 Then
 						_CaptureTH()
 						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\" & $Date & " at " & $Time & "_CaptureTH.png")
 						_WinAPI_DeleteObject($hBitmap)
@@ -220,12 +223,12 @@ Func VillageSearch() ;Control for searching a village that meets conditions
 					ExitLoop
 				Else
                 	SetLog(getLocaleString("logTrapFound"), $COLOR_RED)
-					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+					If $debugOutsideTHImage = 1 Then
 						_CaptureRegion()
 						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\skipped\" & $Date & " at " & $Time & ".png")
 						_WinAPI_DeleteObject($hBitmap)
 					EndIf
-					If $debugDeadBaseImage = 1 and $OptTrappedTH = 1 Then
+					If $debugOutsideTHImage = 1 Then
 						_CaptureTH()
 						_GDIPlus_ImageSaveToFile($hBitmap, @ScriptDir & "\THOutside\skipped\" & $Date & " at " & $Time & "_CaptureTH.png")
 						_WinAPI_DeleteObject($hBitmap)

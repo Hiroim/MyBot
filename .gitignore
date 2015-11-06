@@ -20,6 +20,7 @@ Templates/
 SkippedZombies/
 Zombies/
 THOutside/
+*/BackUp/
 
 #Ignore compiled exe
 *.exe

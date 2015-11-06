@@ -55,22 +55,20 @@ EndFunc
 
 Func SetDPI()
 ; This uses undocumented dll function from MS and does work reliably in all OS so it was removed from main bot code
-	_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 600)
-		$stext = "My Bot needs to change your DPI settinng to continue!" & @CRLF & @CRLF & _
-		"You will be required to reboot your PC when done"& @CRLF & @CRLF & "Please close other programs and save you work NOW!" & @CRLF& @CRLF & _
-		"Hit OK to change settings and reboot, or cancel to exit bot"
-	$MsgBox = _ExtMsgBox(0, "Ok|Cancel", "Display Settings Error", $stext, 120, $frmBot)
+	_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 600)
+		$stext = getLocaleString("txtSetDPI",1)
+	$MsgBox = _ExtMsgBox(0, getLocaleString("msgboxControlOk"), getLocaleString("msgboxDPIErrorTitle"), $stext, 120, $frmBot)
 	If $MsgBox = 1 Then
 		; DLLCALL to change the DPI setting, requires the DPI to be in string format
 		; Requires the system to be restarted to take effect.
 		Local $aRet = DllCall("syssetup.dll", "int", "SetupChangeFontSize", "int_ptr", 0, "wstr", "96")
 		If @error Then Return SetError(2, @extended, 0)
 		If $aRet = 0 Then
-			Setlog("Your Display DPI has been changed!!  Must logoff or restart to complete the chamge!", $COLOR_MAROON)
+			Setlog(getLocaleString("logDPIChanged"), $COLOR_MAROON)
 			_Sleep(5000)
 			Shutdown($SD_REBOOT)
 		Else
-		  Setlog("Your DPI has not been changed due some unknown error, Return= "&$aRet, $COLOR_MAROON)
+		  Setlog(getLocaleString("logDPIChangeError") & $aRet, $COLOR_MAROON)
 		EndIf
 	EndIf
   EndFunc

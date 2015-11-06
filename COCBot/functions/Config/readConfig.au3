@@ -215,9 +215,7 @@ Func readConfig() ;Reads config and sets it to the variables
 		$skipWiz = IniRead($config, "advanced", "skipWiz", "0")
 		$skipInferno = IniRead($config, "advanced", "skipInferno", "0")
 		$skipTesla = IniRead($config, "advanced", "skipTesla", "0")
-		;$skipAir = IniRead($config, "advanced", "skipAir", "0")
 		$grdTroops = IniRead($config, "advanced", "grdTroops", "0")
-		$airTroops = IniRead($config, "advanced", "airTroops", "0")
 
 		$PushToken = IniRead($config, "advanced", "AccountToken", "")
 

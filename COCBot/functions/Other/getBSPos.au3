@@ -18,7 +18,7 @@ Func getBSPos()
 		SetError (0,0,0)
 		OpenBS(True) ; Try to start BS if it is not running
 		If @error = 1 Then
-			_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 600)
+			_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 600)
 			$stext = @CRLF & "MyBot has experienced a serious error" & @CRLF & @CRLF & _
 					"Unable to find or start up BlueSatcks" & @CRLF & @CRLF & "Reboot PC and try again," & _
 					"and search www.mybot.run forums for more help" & @CRLF

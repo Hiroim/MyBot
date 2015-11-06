@@ -475,26 +475,12 @@ Func applyConfig() ;Applies the data from config to the controls in GUI
 	EndIf
 	chkTesla()
 
-	;If $skipAir = 1 Then
-	;	GUICtrlSetState($chkAir, $GUI_CHECKED)
-	;ElseIf $skipAir = 0 Then
-	;	GUICtrlSetState($chkAir, $GUI_UNCHECKED)
-	;EndIf
-	;chkAir()
-
 	If $grdTroops = 1 Then
 		GUICtrlSetState($chkGrdTroops, $GUI_CHECKED)
 	ElseIf $grdTroops = 0 Then
 		GUICtrlSetState($chkGrdTroops, $GUI_UNCHECKED)
 	EndIf
 	chkGrdTroops()
-
-	If $airTroops = 1 Then
-		GUICtrlSetState($chkAirTroops, $GUI_CHECKED)
-	ElseIf $airTroops = 0 Then
-		GUICtrlSetState($chkAirTroops, $GUI_UNCHECKED)
-	EndIf
-	chkAirTroops()
 
 	If $iAlertPBVillage = 1 Then
 		GUICtrlSetState($chkAlertPBVillage, $GUI_CHECKED)

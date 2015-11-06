@@ -27,16 +27,14 @@ Func LocateQueenAltar()
 
 	If _GetPixelColor($aTopLeftClient[0], $aTopLeftClient[1], True) <> Hex($aTopLeftClient[2], 6) And _GetPixelColor($aTopRightClient[0], $aTopRightClient[1], True) <> Hex($aTopRightClient[2], 6) Then
 		Zoomout()
-		Collect()
 	EndIf
 
-	SetLog("Locating Queen Altar...", $COLOR_BLUE)
+	SetLog(getLocaleString("logLocateQueen"), $COLOR_BLUE)
 	While 1
 		ClickP($aTopLeftClient)
-		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 500)
-		$stext = $sErrorText & @CRLF & "Click OK then click on your Queen Altar" & @CRLF & @CRLF & _
-				"Do not move mouse after clicking location" & @CRLF & @CRLF & "Make sure the building name is visible for me!" & @CRLF
-		$MsgBox = _ExtMsgBox(0, "Ok|Cancel", "Locate Queen Altar", $stext, 15, $frmBot)
+		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 500)
+		$stext = $sErrorText & @CRLF & getLocaleString("msgboxLocateQueen_msg",1) & @CRLF
+		$MsgBox = _ExtMsgBox(0, getLocaleString("msgboxLocateHeroes_controls"), getLocaleString("msgboxLocateQueen_title"), $stext, 15, $frmBot)
 		If $MsgBox = 1 Then
 			$HWnD = WinGetHandle($Title)
 			WinActivate($HWnD)
@@ -46,33 +44,33 @@ Func LocateQueenAltar()
 				$iStupid += 1
 				Select
 					Case $iStupid = 1
-						$sErrorText = "Queen Altar Location Not Valid!" & @CRLF
-						SetLog("Location not valid, try again", $COLOR_RED)
+						$sErrorText = getLocaleString("txtStupidCase1Queen") & @CRLF
+						SetLog(getLocaleString("txtStupidCase1Queen"), $COLOR_RED)
 						ContinueLoop
 					Case $iStupid = 2
-						$sErrorText = "Please try to click inside the grass field!" & @CRLF
+						$sErrorText = getLocaleString("txtStupidCase2") & @CRLF
 						ContinueLoop
 					Case $iStupid = 3
-						$sErrorText = "This is not funny, why did you click @ (" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")?" & @CRLF & "  Please stop!" & @CRLF & @CRLF
+						$sErrorText = getLocaleString("txtStupidCase3") & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")?" & @CRLF & getLocaleString("txtStupidCase3_2") & @CRLF & @CRLF
 						ContinueLoop
 					Case $iStupid = 4
-						$sErrorText = "Last Chance, DO NOT MAKE ME ANGRY, or" & @CRLF & "I will give ALL of your gold to Barbarian King," & @CRLF & "And ALL of your Gems to the Archer Queen!" & @CRLF
+						$sErrorText = getLocaleString("txtStupidCase4",1) & @CRLF
 						ContinueLoop
 					Case $iStupid > 4
-						SetLog(" Operator Error - Bad Queen Altar Location: " & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_RED)
+						SetLog(getLocaleString("txtOperatorErrQueen") & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_RED)
 						ClickP($aTopLeftClient)
 						Return False
 					Case Else
-						SetLog(" Operator Error - Bad Queen Altar Location: " & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_RED)
+						SetLog(getLocaleString("txtOperatorErrQueen") & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_RED)
 						$QueenAltarPos[0] = -1
 						$QueenAltarPos[1] = -1
 						ClickP($aTopLeftClient)
 						Return False
 				EndSelect
 			EndIf
-			SetLog("Queen Altar: " & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_GREEN)
+			SetLog(getLocaleString("logPosQueen") & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_GREEN)
 		Else
-			SetLog("Locate Queen Altar Cancelled", $COLOR_BLUE)
+			SetLog(getLocaleString("logLocateCancelledQueen"), $COLOR_BLUE)
 			ClickP($aTopLeftClient)
 			Return
 		EndIf
@@ -103,19 +101,19 @@ Func LocateQueenAltar()
 				$iSilly += 1
 				Select
 					Case $iSilly = 1
-						$sErrorText = "Wait, That is not the Queen Altar?, It was a " & $sLocMsg & @CRLF
+						$sErrorText = getLocaleString("txtSillyCaseQueen") & $sLocMsg & @CRLF
 						ContinueLoop
 					Case $iSilly = 2
-						$sErrorText = "Quit joking, That was " & $sLocMsg & @CRLF
+						$sErrorText = getLocaleString("txtSillyCase2") & $sLocMsg & @CRLF
 						ContinueLoop
 					Case $iSilly = 3
-						$sErrorText = "This is not funny, why did you click " & $sLocMsg & "? Please stop!" & @CRLF
+						$sErrorText = getLocaleString("txtSillyCase3") & $sLocMsg & getLocaleString("txtSillyCase3_2") & @CRLF
 						ContinueLoop
 					Case $iSilly = 4
-						$sErrorText = $sLocMsg & " ?!?!?!" & @CRLF & @CRLF & "Last Chance, DO NOT MAKE ME ANGRY, or" & @CRLF & "I will give ALL of your gold to Barbarian King," & @CRLF & "And ALL of your Gems to the Archer Queen!" & @CRLF
+						$sErrorText = $sLocMsg & " ?!?!?!" & @CRLF & @CRLF & getLocaleString("txtStupidCase4",1) & @CRLF
 						ContinueLoop
 					Case $iSilly > 4
-						SetLog("Quit joking, Click the Queen Altar, or restart bot and try again", $COLOR_RED)
+						SetLog(getLocaleString("txtSillyCase4Queen"), $COLOR_RED)
 						$QueenAltarPos[0] = -1
 						$QueenAltarPos[1] = -1
 						ClickP($aTopLeftClient)
@@ -123,7 +121,7 @@ Func LocateQueenAltar()
 				EndSelect
 			EndIf
 		Else
-			SetLog(" Operator Error - Bad Queen Altar Location: " & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_RED)
+			SetLog(getLocaleString("txtOperatorErrQueen") & "(" & $QueenAltarPos[0] & "," & $QueenAltarPos[1] & ")", $COLOR_RED)
 			$QueenAltarPos[0] = -1
 			$QueenAltarPos[1] = -1
 			ClickP($aTopLeftClient)
@@ -135,9 +133,9 @@ Func LocateQueenAltar()
 	ClickP($aTopLeftClient, 1, 200, "#0327")
 	If _Sleep(1000) Then Return
 
-	_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 500)
-	$stext = "Now you can remove mouse out of bluestacks, Thanks!!"
-	$MsgBox = _ExtMsgBox(48, "OK", "Notice!", $stext, 15, $frmBot)
+	_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 500)
+	$stext = getLocaleString("txtRemoveMouse")
+	$MsgBox = _ExtMsgBox(48, getLocaleString("msgboxMsgACControls"), getLocaleString("msgboxMsgACTitle"), $stext, 15, $frmBot)
 
 	IniWrite($building, "other", "xQueenAltarPos", $QueenAltarPos[0])
 	IniWrite($building, "other", "yQueenAltarPos", $QueenAltarPos[1])
@@ -152,15 +150,13 @@ Func LocateKingAltar()
 	$RunState = True
 	WinActivate($Title)
 	checkMainScreen(False)
-	Collect()
 
-	SetLog("Locating King Altar...", $COLOR_BLUE)
+	SetLog(getLocaleString("logLocateKing"), $COLOR_BLUE)
 	While 1
 		ClickP($aTopLeftClient)
-		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 500)
-		$stext = $sErrorText & @CRLF & "Click OK then click on your King Altar" & @CRLF & @CRLF & _
-				"Do not move mouse after clicking location" & @CRLF & @CRLF & "Make sure the building name is visible for me!" & @CRLF
-		$MsgBox = _ExtMsgBox(0, "Ok|Cancel", "Locate King Altar", $stext, 15, $frmBot)
+		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 500)
+		$stext = $sErrorText & @CRLF & getLocaleString("msgboxLocateKing_msg",1) & @CRLF
+		$MsgBox = _ExtMsgBox(0, getLocaleString("msgboxLocateHeroes_controls"), getLocaleString("logLocateKing"), $stext, 15, $frmBot)
 		If $MsgBox = 1 Then
 			$HWnD = WinGetHandle($Title)
 			WinActivate($HWnD)
@@ -170,33 +166,33 @@ Func LocateKingAltar()
 				$iStupid += 1
 				Select
 					Case $iStupid = 1
-						$sErrorText = "King Altar Location Not Valid!" & @CRLF
-						SetLog("Location not valid, try again", $COLOR_RED)
+						$sErrorText = getLocaleString("txtStupidCase1King") & @CRLF
+						SetLog(getLocaleString("txtStupidCase1King"), $COLOR_RED)
 						ContinueLoop
 					Case $iStupid = 2
-						$sErrorText = "Please try to click inside the grass field!" & @CRLF
+						$sErrorText = getLocaleString("txtStupidCase2") & @CRLF
 						ContinueLoop
 					Case $iStupid = 3
-						$sErrorText = "This is not funny, why did you click @ (" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")?" & @CRLF & "  Please stop!" & @CRLF & @CRLF
+						$sErrorText = getLocaleString("txtStupidCase3") & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")?" & @CRLF & getLocaleString("txtStupidCase3_2") & @CRLF & @CRLF
 						ContinueLoop
 					Case $iStupid = 4
-						$sErrorText = "Last Chance, DO NOT MAKE ME ANGRY, or" & @CRLF & "I will give ALL of your gold to Barbarian King," & @CRLF & "And ALL of your Gems to the Archer Queen!" & @CRLF
+						$sErrorText = getLocaleString("txtStupidCase4",1) & @CRLF
 						ContinueLoop
 					Case $iStupid > 4
-						SetLog(" Operator Error - Bad King Altar Location: " & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_RED)
+						SetLog(getLocaleString("txtOperatorErrKing") & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_RED)
 						ClickP($aTopLeftClient)
 						Return False
 					Case Else
-						SetLog(" Operator Error - Bad King Altar Location: " & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_RED)
+						SetLog(getLocaleString("txtOperatorErrKing") & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_RED)
 						$KingAltarPos[0] = -1
 						$KingAltarPos[1] = -1
 						ClickP($aTopLeftClient)
 						Return False
 				EndSelect
 			EndIf
-			SetLog("King Altar: " & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_GREEN)
+			SetLog(getLocaleString("logPosKing") & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_GREEN)
 		Else
-			SetLog("Locate King Altar Cancelled", $COLOR_BLUE)
+			SetLog(getLocaleString("logLocateCancelledKing"), $COLOR_BLUE)
 			ClickP($aTopLeftClient)
 			Return
 		EndIf
@@ -226,19 +222,19 @@ Func LocateKingAltar()
 				$iSilly += 1
 				Select
 					Case $iSilly = 1
-						$sErrorText = "Wait, That is not the King Altar?, It was a " & $sLocMsg & @CRLF
+						$sErrorText = getLocaleString("txtSillyCaseKing") & $sLocMsg & @CRLF
 						ContinueLoop
 					Case $iSilly = 2
-						$sErrorText = "Quit joking, That was " & $sLocMsg & @CRLF
+						$sErrorText = getLocaleString("txtSillyCase2") & $sLocMsg & @CRLF
 						ContinueLoop
 					Case $iSilly = 3
-						$sErrorText = "This is not funny, why did you click " & $sLocMsg & "? Please stop!" & @CRLF
+						$sErrorText = getLocaleString("txtSillyCase3") & $sLocMsg & getLocaleString("txtSillyCase3_2") & @CRLF
 						ContinueLoop
 					Case $iSilly = 4
-						$sErrorText = $sLocMsg & " ?!?!?!" & @CRLF & @CRLF & "Last Chance, DO NOT MAKE ME ANGRY, or" & @CRLF & "I will give ALL of your gold to Barbarian King," & @CRLF & "And ALL of your Gems to the Archer Queen!" & @CRLF
+						$sErrorText = $sLocMsg & " ?!?!?!" & @CRLF & @CRLF & getLocaleString("txtStupidCase4",1) & @CRLF
 						ContinueLoop
 					Case $iSilly > 4
-						SetLog("Quit joking, Click the King Altar, or restart bot and try again", $COLOR_RED)
+						SetLog(getLocaleString("txtSillyCase4King"), $COLOR_RED)
 						$KingAltarPos[0] = -1
 						$KingAltarPos[1] = -1
 						ClickP($aTopLeftClient)
@@ -246,7 +242,7 @@ Func LocateKingAltar()
 				EndSelect
 			EndIf
 		Else
-			SetLog(" Operator Error - Bad King Altar Location: " & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_RED)
+			SetLog(getLocaleString("txtOperatorErrKing") & "(" & $KingAltarPos[0] & "," & $KingAltarPos[1] & ")", $COLOR_RED)
 			$KingAltarPos[0] = -1
 			$KingAltarPos[1] = -1
 			ClickP($aTopLeftClient)
@@ -258,9 +254,9 @@ Func LocateKingAltar()
 	ClickP($aTopLeftClient, 1, 200, "#0327")
 	If _Sleep(1000) Then Return
 
-	_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 500)
-	$stext = "Now you can remove mouse out of bluestacks, Thanks!!"
-	$MsgBox = _ExtMsgBox(48, "OK", "Notice!", $stext, 15, $frmBot)
+	_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 500)
+	$stext = getLocaleString("txtRemoveMouse")
+	$MsgBox = _ExtMsgBox(48, getLocaleString("msgboxMsgACControls"), getLocaleString("msgboxMsgACTitle"), $stext, 15, $frmBot)
 
 	IniWrite($building, "other", "xKingAltarPos", $KingAltarPos[0])
 	IniWrite($building, "other", "yKingAltarPos", $KingAltarPos[1])

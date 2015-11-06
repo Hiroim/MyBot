@@ -424,20 +424,10 @@ Func saveConfig() ;Saves the controls settings to the config
 	Else
 		IniWrite($config, "advanced", "skipTesla", 0)
 	EndIf
-	;If GUICtrlRead($chkAir) = $GUI_CHECKED Then
-	;	IniWrite($config, "advanced", "skipAir", 1)
-	;Else
-	;	IniWrite($config, "advanced", "skipAir", 0)
-	;EndIf
 	If GUICtrlRead($chkGrdTroops) = $GUI_CHECKED Then
 		IniWrite($config, "advanced", "grdTroops", 1)
 	Else
 		IniWrite($config, "advanced", "grdTroops", 0)
-	EndIf
-	If GUICtrlRead($chkAirTroops) = $GUI_CHECKED Then
-		IniWrite($config, "advanced", "airTroops", 1)
-	Else
-		IniWrite($config, "advanced", "airTroops", 0)
 	EndIf
 
 

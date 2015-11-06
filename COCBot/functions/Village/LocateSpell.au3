@@ -25,7 +25,7 @@ Func LocateSpellFactory()
 
 	While 1
 		ClickP($aAway,1,0,"#0385")
-		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 500)
+		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 500)
 		$stext = $sErrorText & @CRLF & "Click OK then click on your Spell Factory" & @CRLF & @CRLF & _
 		"Do not move mouse quickly after clicking location"& @CRLF & @CRLF & "Make sure the building name is visible for me!" & @CRLF
 		$MsgBox = _ExtMsgBox(0, "Ok|Cancel", "Locate Spell Factory", $stext, 15, $frmBot)
@@ -125,7 +125,7 @@ Func LocateDarkSpellFactory()
 
 	While 1
 		ClickP($aAway,1,0,"#0385")
-		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Comic Sans MS", 500)
+		_ExtMsgBoxSet(1 + 64, $SS_CENTER, 0x004080, 0xFFFF00, 12, "Lucida Sans Unicode", 500)
 		$stext = $sErrorText & @CRLF & "Click OK then click on your Dark Spell Factory" & @CRLF & @CRLF & _
 		"Do not move mouse quickly after clicking location"& @CRLF & @CRLF & "Make sure the building name is visible for me!" & @CRLF
 		$MsgBox = _ExtMsgBox(0, "Ok|Cancel", "Locate Dark Spell Factory", $stext, 15, $frmBot)
