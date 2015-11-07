@@ -835,8 +835,8 @@ Func Train()
 						If $debugSetlog = 1 Then SetLog("Call Func TrainIt for Mini", $COLOR_PURPLE)
 						If Not (IsTrainPage()) Then Return ;exit from train
 						TrainIt($eMini, 10)
-						$BarrackDarkFull[$brrDarkNum-1] = False
-						$BarrackDarkStatus[$brrDarkNum-1] = True
+						$BarrackDarkFull[$brrDarkNum - 1] = False
+						$BarrackDarkStatus[$brrDarkNum - 1] = True
 						If $i >= 2 Then ExitLoop ; Make sure no more infiniti loop
 
 						If $brrDarkNum = 1 Then
@@ -912,13 +912,13 @@ Func IsTrainPage()
 
 	Local $i = 0
 	While $i < 30
-		If $DebugSetlog = 1 Then SetLog( "TrainPage:(" & _GetPixelColor(717, 120, True) & ",Expected:E0070A)(" & _GetPixelColor(762, 328, True) & ",Expected:F18439)", $COLOR_PURPLE)
+		If $debugSetlog = 1 Then SetLog("TrainPage:(" & _GetPixelColor(717, 120, True) & ",Expected:E0070A)(" & _GetPixelColor(762, 328, True) & ",Expected:F18439)", $COLOR_PURPLE)
 		If _ColorCheck(_GetPixelColor(717, 120, True), Hex(0xE0070A, 6), 10) And _ColorCheck(_GetPixelColor(762, 328, True), Hex(0xF18439, 6), 10) Then ExitLoop
 		_Sleep($iDelayIsTrainPage1)
 		$i += 1
 	WEnd
 	If $i < 30 Then
-		If $DebugSetlog = 1 Then Setlog("**TrainPage OK**", $COLOR_PURPLE)
+		If $debugSetlog = 1 Then Setlog("**TrainPage OK**", $COLOR_PURPLE)
 		Return True
 	Else
 		SetLog(getLocaleString("logCannotFindTrainPage"), $COLOR_RED)
