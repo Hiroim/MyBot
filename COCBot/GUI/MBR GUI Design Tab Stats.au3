@@ -180,7 +180,7 @@ Local $x = 30, $y = 145
 		$y = 258
 		GUICtrlCreateIcon ($pIconLib, $eIcnTrophy, $x - 5, $y, 16, 16)
         $lbltrophiesdropped = GUICtrlCreateLabel(getLocaleString("lbltrophiesdropped"), $x + 13, $y + 2, -1, 17)
-        $lblresulttrophiesdropped = GUICtrlCreateLabel("0", $x + 115, $y + 2, 30, 17, $SS_RIGHT)
+        $lblresulttrophiesdropped = GUICtrlCreateLabel("0", $x + 95, $y + 2, 50, 17, $SS_RIGHT)
 			GUICtrlSetTip(-1, getLocaleString("tipresulttrophiesdropped"))
 
         $y += 17

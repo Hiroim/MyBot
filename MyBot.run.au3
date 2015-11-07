@@ -19,14 +19,15 @@
 #pragma compile(FileDescription, Clash of Clans Bot - A Free Clash of Clans bot - https://mybot.run)
 #pragma compile(ProductName, My Bot)
 
-#pragma compile(ProductVersion, 4.2.2)
-#pragma compile(FileVersion, 4.2.2)
+#pragma compile(ProductVersion, 4.2.3)
+#pragma compile(FileVersion, 4.2.3)
 #pragma compile(LegalCopyright, © https://mybot.run)
 
-$sBotVersion = "v4.2.2"
-$sBotTitle = "My Bot " & $sBotVersion
-Global $sBotDll = @ScriptDir & "\MBRPlugin.dll"
 Global $StartupLanguage = IniRead(@ScriptDir & "\COCBot\GUI\localization\lang.ini", "config", "language", "English")
+
+$sBotVersion = "v4.2.3"
+$sBotTitle = "My Bot" & getLocaleString("txtLang") & $sBotVersion
+Global $sBotDll = @ScriptDir & "\MBRPlugin.dll"
 
 If _Singleton($sBotTitle, 1) = 0 Then
 	MsgBox(0, getLocaleString("msgboxWarningTitle"), getLocaleString("msgboxRun"))
@@ -206,9 +207,9 @@ Func runBot() ;Bot that runs everything in order
 				;
 		Else ;When error occours directly goes to attack
 			SetLog(getLocaleString("logOOS"), $COLOR_RED)
-			$iNbrOfOoS += 1
-			UpdateStats()
-			PushMsg("OutOfSync")
+;			$iNbrOfOoS += 1
+;			UpdateStats()
+;			PushMsg("OutOfSync")
 			checkMainScreen(False)
 			If $Restart = True Then ContinueLoop
 			AttackMain()
